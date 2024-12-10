@@ -14,7 +14,7 @@ const LoginScreen = () => {
 
     // Hardcoded credentials
     const validEmail = "staff";
-    const validPassword = "123";
+    const validPassword = "1234";
 
     if (email === validEmail && password === validPassword) {
       // Successful login
