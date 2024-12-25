@@ -11,6 +11,14 @@ export const color = {
     grey_2b3945: "#2b3945",
     grey_202c37: "#202c37",
     blue_bg_202c37: "#202c37",
-    grey_959a9f: "#959a9f"
+    grey_959a9f: "#959a9f",
+    brown_3C200A: "#3C200A",
+    black_2F251D: "#2F251D",
+    borderBrown_CEBCA0: "#CEBCA0",
+    btnBrown_AE6F28: "#AE6F28",
+    btnTxt_FFF6DF: "#FFF6DF",
+    placeholderTxt_24282C: "#24282C",
+    selectField_CEBCA0: "#CEBCA0",
+    brown_F7E4B6: "#F7E4B6"
   };
   
