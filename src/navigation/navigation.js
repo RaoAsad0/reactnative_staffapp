@@ -1,47 +1,21 @@
-// src/Navigation.js
-import React, { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../screens/LoginScreen';
-import HomeScreen from '../screens/HomeScreen';
-
+import MyTabs from '../screens/MyTabs'; 
 
 const Stack = createNativeStackNavigator();
 
-const Navigation = () => {
-  const [isLoading, setIsLoading] = useState(true); // To show the splash screen
+function LoggedInScreen() {
+  return <MyTabs />;
+}
 
-  useEffect(() => {
-    const checkLoginStatus = () => {
-      setIsLoading(false);  // Set loading to false to hide splash screen
-    };
-
-    checkLoginStatus();
-  }, []);
-
-  if (isLoading) {
-    // Default Expo splash screen will automatically show here
-    return null; // Returning null lets the splash screen display until the JS is loaded
-  }
-
+function Navigation() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-     
-         <Stack.Screen
-           options={{ headerShown: false }}
-           name="Login"
-           component={LoginScreen}
-         />
-    
-         <Stack.Screen
-           options={{ headerShown: false }}
-           name="Home"
-           component={HomeScreen}
-         />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator >
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="LoggedIn" component={LoggedInScreen} options={{ headerShown: false }} /> 
+    </Stack.Navigator>
   );
-};
+}
 
 export default Navigation;

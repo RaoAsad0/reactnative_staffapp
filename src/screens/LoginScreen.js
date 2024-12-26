@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { color } from '../color/color';
 
 
+
 const LoginScreen = () => {
   const navigation = useNavigation();
 
@@ -15,7 +16,7 @@ const LoginScreen = () => {
   const handleSignIn = (values) => {
     
     console.log('Signing in with:', values);
-    navigation.navigate('Home');
+    navigation.navigate('LoggedIn'); 
   };
 
   return (

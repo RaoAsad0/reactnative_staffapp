@@ -1,6 +1,15 @@
 import React from 'react';
-import  Navigation  from "./src/navigation/navigation";
+import { NavigationContainer } from '@react-navigation/native';
+import Navigation from "./src/navigation/navigation"
 
-export default function App() {
-  return <Navigation />;
+import MyTabs from './src/screens/MyTabs';
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Navigation />
+    </NavigationContainer>
+  );
 }
+
+export default App;
