@@ -2,11 +2,13 @@ import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CameraOverlay from '../../components/CameraOverlay';
+import Header from '../../components/header';
 
 const HomeScreen = () => {
   const [facing, setFacing] = useState('back');
   const [permission, requestPermission] = useCameraPermissions();
   const [scannedData, setScannedData] = useState(null);
+  const [activeTab, setActiveTab] = useState('CheckIn');
 
   if (!permission) {
    
@@ -17,6 +19,7 @@ const HomeScreen = () => {
    
     return (
       <View style={styles.container}>
+        <Header activeTab={activeTab} /> 
         <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
         <Button onPress={requestPermission} title="grant permission" />
       </View>

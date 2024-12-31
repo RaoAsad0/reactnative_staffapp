@@ -12,7 +12,7 @@ function LoggedInScreen() {
 function Navigation() {
   return (
     <Stack.Navigator >
-      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
       <Stack.Screen name="LoggedIn" component={LoggedInScreen} options={{ headerShown: false }} /> 
     </Stack.Navigator>
   );

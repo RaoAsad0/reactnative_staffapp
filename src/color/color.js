@@ -19,6 +19,7 @@ export const color = {
     btnTxt_FFF6DF: "#FFF6DF",
     placeholderTxt_24282C: "#24282C",
     selectField_CEBCA0: "#CEBCA0",
-    brown_F7E4B6: "#F7E4B6"
+    brown_F7E4B6: "#F7E4B6",
+    lightBrown_FFF6DF: "#FFF6DF",
   };
   
