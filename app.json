@@ -7,13 +7,15 @@
     "icon": "./assets/images/login-icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain"
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.asadahmad.staffapp"
+      "bundleIdentifier": "com.asadahmad.staffapp",
+      "newArchEnabled": true
     },
     "android": {
       "permissions": [
@@ -22,7 +24,8 @@
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.asad_ahmad.staffapp"
+      "package": "com.asad_ahmad.staffapp",
+      "newArchEnabled": true
     },
     "web": {
       "bundler": "metro",

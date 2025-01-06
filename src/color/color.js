@@ -6,6 +6,8 @@ export const color = {
     red_FF0000: "#FF0000",
     black_2c3641: "#2c3641",
     black_212b34: "#212b34",
+    black_544B45: "#544B45",
+    black_2F251D: "#2F251D",
     borderColor_1e2831: "#1e2831",
     grey_afb3b7: "#afb3b7",
     grey_2b3945: "#2b3945",

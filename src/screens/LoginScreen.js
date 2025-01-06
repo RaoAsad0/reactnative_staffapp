@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity,Platform  } from 'react-native';
+import { Image as ExpoImage, ImageBackground as ExpoImageBackground } from 'expo-image';
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -13,59 +14,63 @@ const LoginScreen = () => {
 
   const handleSignIn = (values) => {
     console.log('Signing in with:', values);
-    navigation.navigate('LoggedIn');
+    navigation.navigate('OtpLogin');
   };
 
   return (
+    <>
 
-    <ImageBackground
-      source={require('../../assets/images/bg-signup.png')}
-      resizeMode="cover"
-      style={styles.background}
+      <ExpoImageBackground
+        source={require('../../assets/images/bg-signup.png')}
+        contentFit="cover"
+        style={styles.background}
 
-    >
+      >
 
-      <View style={styles.topSection}>
-        <Image source={require('../../assets/images/user.png')} style={styles.image} />
-        <Text style={styles.topText}>Hexallo</Text>
-      </View>
+        <View style={styles.topSection}>
+          <ExpoImage
+            source={require('../../assets/images/Hexallo favicon.png')}
+            style={styles.image} contentFit="contain" />
+          <Text style={styles.topText}>Hexallo</Text>
+        </View>
 
-      <Text style={styles.additionalText} numberOfLines={2}>Get Started{'\n'}to do more!</Text>
-      <View style={styles.container}>
+        <Text style={styles.additionalText} numberOfLines={2}>Get Started{'\n'}to do more!</Text>
+        <View style={styles.container}>
 
-        <Text style={styles.appName}>Sign In</Text>
-        <Text style={styles.labelText}>Enter your email or phone number{'\n'} to Sign In   </Text>
+          {/* <Text style={styles.appName}>Sign In</Text>
+          <Text style={styles.labelText}>Enter your email or phone number{'\n'} to Sign In   </Text> */}
 
-        <Formik
-          initialValues={{ email: '' }}
-          validationSchema={validationSchema}
-          onSubmit={handleSignIn}
-        >
-          {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
-            <View style={{ width: '100%' }}>
-              <Text style={styles.inputHeading}>Email or Phone Number</Text>
-              <TextInput
-                style={[styles.input, touched.email && errors.email ? styles.inputError : null]}
-                placeholder="johndoe@gmail.com"
-                placeholderTextColor={color.placeholderTxt_24282C}
-                onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
-                value={values.email}
-                keyboardType="email-address"
-                selectionColor={color.selectField_CEBCA0}
-              />
-              {touched.email && errors.email && (
-                <Text style={styles.errorText}>{errors.email}</Text>
-              )}
+          <Formik
+            initialValues={{ email: '' }}
+            validationSchema={validationSchema}
+            onSubmit={handleSignIn}
+          >
+            {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+              <View style={{ width: '100%' }}>
+                <Text style={styles.inputHeading}>Email or Phone Number</Text>
+                <TextInput
+                  style={[styles.input, touched.email && errors.email ? styles.inputError : null]}
+                  placeholder="johndoe@gmail.com"
+                  placeholderTextColor={color.placeholderTxt_24282C}
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                  value={values.email}
+                  keyboardType="email-address"
+                  selectionColor={color.selectField_CEBCA0}
+                />
+                {touched.email && errors.email && (
+                  <Text style={styles.errorText}>{errors.email}</Text>
+                )}
 
-              <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                <Text style={styles.buttonText}>Sign In</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-        </Formik>
-      </View>
-    </ImageBackground>
+                <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                  <Text style={styles.buttonText}>Sign In</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          </Formik>
+        </View>
+      </ExpoImageBackground>
+    </>
   );
 };
 
@@ -74,6 +79,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 50,
     paddingHorizontal: 20,
+  },
+  image: {
+    width: 50,
+    height: 50,
   },
   topSection: {
     flexDirection: 'row',
@@ -92,7 +101,8 @@ const styles = StyleSheet.create({
   topText: {
     color: color.lightBrown_FFF6DF,
     marginStart: 10,
-    fontSize: 20
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   container: {
     alignItems: 'center',
@@ -106,7 +116,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 5,
     elevation: 5,
-    marginTop: 40
+    marginTop: Platform.OS === 'ios' ? 40: 60
   },
   logo: {
     width: 100,
@@ -148,7 +158,6 @@ const styles = StyleSheet.create({
   },
   inputHeading: {
     color: color.black_2F251D,
-    marginTop: 15,
     marginBottom: 10,
   },
   inputError: {
