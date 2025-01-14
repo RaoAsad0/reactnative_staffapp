@@ -1,10 +1,13 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,StatusBar } from 'react-native';
 import React from 'react';
+import Header from '../../components/header';
+import { color } from '../color/color';
 
  function ManualScan() {
   return (
     <View style={styles.container}>
-      <Text>ManualScan</Text>
+       <StatusBar barStyle="dark-content" backgroundColor="white" />
+      <Header />
     </View>
   );
 }
@@ -12,8 +15,7 @@ import React from 'react';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: color.white_FFFFFF,
   },
 });
 

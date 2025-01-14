@@ -93,7 +93,9 @@ const OtpLoginScreen = () => {
               <TextInput
                 key={index}
                 style={styles.otpInput}
-                value={digit} // Show `-` if the input is empty
+                value={digit} // The actual digit entered by the user
+                placeholder={digit === '' ? '-' : ''} // Ensure the placeholder is shown only when the field is empty
+                placeholderTextColor={color.black_212b34}
                 maxLength={1}
                 keyboardType="numeric"
                 onChangeText={(value) => handleOtpChange(value, index)}
@@ -101,6 +103,7 @@ const OtpLoginScreen = () => {
                 ref={(ref) => (inputRefs.current[index] = ref)} // Assign the ref
                 selectionColor={color.selectField_CEBCA0}
               />
+
             ))}
           </View>
 

@@ -1,62 +1,185 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Text, TextInput, FlatList, StyleSheet } from 'react-native';
-import TicketCard from '../../components/ticketCard';
+import { View, TextInput, StyleSheet, TouchableOpacity, Text,StatusBar } from 'react-native';
 import Header from '../../components/header';
+import TicketsTab from './TicketsTab';
+import BoxOfficeTab from './BoxOfficeTab';
+import { color } from '../color/color';
 
 const SettingsScreen = () => {
-  const [tickets, setTickets] = useState([
-    { id: 1, type: 'General Admission', price: 20, date: '2024-12-31'},
-    { id: 2, type: 'VIP', price: 50, date: '2025-01-05'},
-    // Add more dummy tickets here
-  ]);
-  const [searchText, setSearchText] = useState('');
+  const [activeView, setActiveView] = useState('TicketsTab');
+  
+  const tickets = [
+    {
+      id: '#12389651342',
+      type: 'Standard Ticket',
+      price: 30,
+      date: 'Sat, 02 2025',
+      status: 'Scanned',
+      imageUrl: require('../../assets/images/qr-icon.png')
+    },
+    {
+      id: '#12389651343',
+      type: 'Standard Ticket',
+      price: 30,
+      date: 'Sat, 02 2025',
+      status: 'Unscanned',
+      imageUrl: require('../../assets/images/qr-icon.png')
+    },
+    {
+      id: '#12389651344',
+      type: 'Standard Ticket',
+      price: 30,
+      date: 'Sat, 02 2025',
+      status: 'Scanned',
+      imageUrl: require('../../assets/images/qr-icon.png')
+    },
+    {
+      id: '#12389651345',
+      type: 'Standard Ticket',
+      price: 30,
+      date: 'Sun, 02 2025',
+      status: 'Unscanned',
+      imageUrl: require('../../assets/images/qr-icon.png')
+    }, {
+      id: '#12389651346',
+      type: 'Standard Ticket',
+      price: 30,
+      date: 'Sat, 02 2025',
+      status: 'Scanned',
+      imageUrl: require('../../assets/images/qr-icon.png')
+    },
+    {
+      id: '#12389651347',
+      type: 'Standard Ticket',
+      price: 30,
+      date: 'Sat, 02 2025',
+      status: 'Unscanned',
+      imageUrl: require('../../assets/images/qr-icon.png')
+    }, {
+      id: '#12389651348',
+      type: 'Standard Ticket',
+      price: 30,
+      date: 'Sat, 02 2025',
+      status: 'Scanned',
+      imageUrl: require('../../assets/images/qr-icon.png')
+    },
+    {
+      id: '#12389651349',
+      type: 'Standard Ticket',
+      price: 30,
+      date: 'Sat, 02 2025',
+      status: 'Unscanned',
+      imageUrl: require('../../assets/images/qr-icon.png')
+    }, {
+      id: '#12389651350',
+      type: 'Standard Ticket',
+      price: 30,
+      date: 'Sat, 02 2025',
+      status: 'Scanned',
+      imageUrl: require('../../assets/images/qr-icon.png')
+    },
+    {
+      id: '#12389651351',
+      type: 'Standard Ticket',
+      price: 30,
+      date: 'Sat, 02 2025',
+      status: 'Unscanned',
+      imageUrl: require('../../assets/images/qr-icon.png')
+    },
+    // Add more tickets
+  ];
 
-  const filteredTickets = tickets.filter((ticket) =>
-    ticket.id.toString().includes(searchText) ||
-    ticket.type.toLowerCase().includes(searchText.toLowerCase()) ||
-    ticket.date.includes(searchText)
-  );
+  const handleTicketsPress = () => {
+    setActiveView('TicketsTab');
+  };
 
-  const handleSearchChange = (text) => {
-    setSearchText(text);
+  const handleBoxOfficePress = () => {
+    setActiveView('BoxOfficeTab');
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+       <StatusBar barStyle="dark-content" backgroundColor="white" />
+      <Header />
 
-   
-      <TextInput
-        style={styles.searchBar}
-        placeholder="Search Tickets"
-        onChangeText={handleSearchChange}
-        value={searchText}
-      />
-      {filteredTickets.length > 0 && (
-        <FlatList
-          data={filteredTickets}
-          renderItem={({ item }) => <TicketCard ticket={item} />}
-          keyExtractor={(item) => item.id}
-        />
-      )}
-    </SafeAreaView>
+      <View style={styles.tabContainer}>
+        <TouchableOpacity
+          onPress={handleTicketsPress}
+          style={[styles.button, activeView === 'TicketsTab' && styles.activeButton]}
+        >
+          <Text
+            style={
+              activeView === 'TicketsTab'
+                ? [styles.buttonText, styles.activeButtonText]
+                : styles.buttonText
+            }
+          >
+            Tickets
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={handleBoxOfficePress}
+          style={[styles.button, activeView === 'BoxOfficeTab' && styles.activeButton]}
+        >
+          <Text
+            style={
+              activeView === 'BoxOfficeTab'
+                ? [styles.buttonText, styles.activeButtonText]
+                : styles.buttonText
+            }
+          >
+            Box Office
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {activeView === 'TicketsTab' && <TicketsTab tickets={tickets} />}
+      {activeView === 'BoxOfficeTab' && <BoxOfficeTab />}
+
+
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 30,
-    backgroundColor: '#fff', // Adjust background color as needed
   },
- 
-  searchBar: {
-    backgroundColor: '#eee', // Adjust background color as needed
-    borderRadius: 10,
-    marginHorizontal: 20,
-    marginVertical: 10,
-    paddingHorizontal: 15,
+  tabContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+  },
+  button: {
+    width: 84,
     height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    marginRight: 10,
   },
+  activeButton: {
+    width: 84,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius: 7,
+    backgroundColor: 'white',
+    marginRight: 10,
+
+  },
+  buttonText: {
+    color: color.brown_766F6A
+  },
+  activeButtonText: {
+    color: color.brown_3C200A,
+    fontWeight: 'bold',
+  },
+
 });
 
 export default SettingsScreen;

@@ -23,5 +23,9 @@ export const color = {
     selectField_CEBCA0: "#CEBCA0",
     brown_F7E4B6: "#F7E4B6",
     lightBrown_FFF6DF: "#FFF6DF",
+    brown_766F6A: "#766F6A",
+    brown_FFE8BB: "#FFE8BB",
+    brown_D58E00: "#D58E00",
+    grey_87807C33: "#87807C33",
   };
   
