@@ -1,6 +1,6 @@
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useState } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View,Platform,StatusBar } from 'react-native';
+import { Button, StyleSheet, Text, TouchableOpacity, View,Platform,StatusBar,Dimensions } from 'react-native';
 import CameraOverlay from '../../components/CameraOverlay';
 import Header from '../../components/header';
 import { color } from '../color/color';
@@ -10,6 +10,45 @@ const HomeScreen = () => {
   const [permission, requestPermission] = useCameraPermissions();
   const [scannedData, setScannedData] = useState(null);
   const [activeTab, setActiveTab] = useState('CheckIn');
+  const { width, height } = Dimensions.get('window');
+
+    const getCameraMarginVertical = () => {
+      if (Platform.OS === 'ios') {
+          if (width === 375) {
+              // iPhone 6/7/8
+              return '25%';
+          } else if (width > 375 && width <= 414) {
+              // iPhone 7 Plus, 8 Plus
+              return '30%';
+          } else {
+              return '30%';
+          }
+      } else {
+          // Android default value
+          return '40%';
+      }
+  };
+
+  const getCameraMarginHorizontal = () => {
+    if (Platform.OS === 'ios') {
+        if (width === 375) {
+            // iPhone 6/7/8
+            return '11%';
+        } else if (width > 375 && width <= 414) {
+            // iPhone 7 Plus, 8 Plus
+            return '13%';
+        } else {
+            return '13%';
+        }
+    } else {
+        // Android default value
+        return '11%';
+    }
+};
+
+const cameraMarginHorizontal = getCameraMarginHorizontal();
+const cameraMarginVertical = getCameraMarginVertical();
+
 
   if (!permission) {
 
@@ -42,7 +81,7 @@ const HomeScreen = () => {
     <View style={styles.container}>
        <StatusBar barStyle="dark-content" backgroundColor="white" />
       <Header />
-      <View style={styles.cameraWrapper}>
+      <View style={[styles.cameraWrapper,{marginHorizontal: cameraMarginHorizontal,marginVertical: cameraMarginVertical}]}>
         <CameraView
           style={styles.camera}
           facing={facing}
@@ -70,8 +109,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
     backgroundColor: 'black',
-    marginHorizontal: Platform.OS === 'ios' ? '13%' : '11%',
-    marginVertical: Platform.OS === 'ios' ? '30%' : '40%'
   },
   camera: {
     width: '100%',

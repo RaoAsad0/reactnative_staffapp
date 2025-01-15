@@ -69,7 +69,7 @@ const TicketsTab = ({ tickets }) => {
             <View
                 style={[
                     styles.statusBtn,
-                    { left: statusBtnLeft } // Dynamically add the left value here
+                    { left: statusBtnLeft } 
                 ]}
             >
                 <TouchableOpacity

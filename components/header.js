@@ -1,10 +1,29 @@
 // Header.js
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text,Platform } from 'react-native';
+import { View, StyleSheet, Text,Platform,Dimensions } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
 import { color } from '../src/color/color';
 
 const Header = () => {
+  const { width } = Dimensions.get('window');
+
+  const getScanMarginLeft = () => {
+    if (Platform.OS === 'ios') {
+        if (width === 375) {
+            // iPhone 6/7/8
+            return 90;
+        } else if (width > 375 && width <= 414) {
+            // iPhone 7 Plus, 8 Plus
+            return 125;
+        } else {
+            return 125;
+        }
+    } else {
+        // Android default value
+        return 120;
+    }
+};
+const scanMarginLeft = getScanMarginLeft();
 
   return (
     <View style={styles.headerColumn}>
@@ -22,7 +41,7 @@ const Header = () => {
         <ExpoImage
           source={require('../assets/images/user.png')} style={styles.userIcon} />
         <Text style={styles.userId}>ID: 87621237467</Text>
-        <Text style={styles.scan}>Scans</Text>
+        <Text style={[styles.scan,{marginLeft: scanMarginLeft }]}>Scans</Text>
         <View style={styles.count}>
           <Text style={styles.countColor}>48</Text></View>
       </View>
@@ -90,7 +109,7 @@ const styles = StyleSheet.create({
     height: 28
   },
   scan: {
-    marginLeft: Platform.OS === 'ios' ? 125 : 120,
+   left: 5
   },
   count: {
     marginLeft: Platform.OS === 'ios' ? 30 : 15,

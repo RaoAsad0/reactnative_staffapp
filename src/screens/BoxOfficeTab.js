@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, ScrollView, TextInput,Platform } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, ScrollView, TextInput,Platform,Dimensions } from 'react-native';
 import { boxofficetablist } from '../constants/boxofficetablist';
 import { Ionicons } from '@expo/vector-icons';
 import { color } from '../color/color';
@@ -13,6 +13,27 @@ const BoxOfficeTab = () => {
   const navigation = useNavigation()
   const [selectedTab, setSelectedTab] = useState(boxofficetablist[0]);
   const [email, setEmail] = useState('');
+  const { width } = Dimensions.get('window');
+
+  const getPaddingHorizontalToPayment = () => {
+      if (Platform.OS === 'ios') {
+          if (width === 375) {
+              // iPhone 6/7/8
+              return 35;
+          } else if (width > 375 && width <= 414) {
+              // iPhone 7 Plus, 8 Plus
+              return 45;
+          } else {
+              return 45;
+          }
+      } else {
+          // Android default value
+          return 43;
+      }
+  };
+
+  const paymentPaddingHorizontal = getPaddingHorizontalToPayment();
+
   const [selectedTickets, setSelectedTickets] = useState([
     { type: 'Standard Ticket', price: 40, discountPrice: 30, quantity: 2 },
     { type: 'VIP Ticket', price: 40, discountPrice: 30, quantity: 2 }
@@ -193,7 +214,7 @@ const BoxOfficeTab = () => {
           <Text>Pay With</Text>
         </View>
         <View style={styles.paymentOptions}>
-          <TouchableOpacity style={styles.paymentOption}>
+          <TouchableOpacity style={[styles.paymentOption,{paddingHorizontal: paymentPaddingHorizontal}]}>
             <ExpoImage
               source={require('../../assets/images/camera-icon.png')}
               contentFit="contain"
@@ -201,7 +222,7 @@ const BoxOfficeTab = () => {
               />
             <Text style={styles.paymentOptionText}>Cash</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.paymentOption}>
+          <TouchableOpacity style={[styles.paymentOption,{paddingHorizontal: paymentPaddingHorizontal}]}>
           <ExpoImage
               source={require('../../assets/images/card-icon.png')}
               contentFit="contain"
@@ -349,7 +370,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#CEBCA0',
     borderRadius: 10,
-    paddingHorizontal:  Platform.OS === 'ios' ? 45 : 43,
     gap: 5
   },
   paymentOptionText: {
@@ -441,14 +461,15 @@ const styles = StyleSheet.create({
   lineView: {
     borderColor: '#CEBCA0',
     width: '100%',
-    borderWidth: 0.4,
+    borderWidth: 0.5,
     top: 10
   },
 
   lineView2: {
     borderColor: '#CEBCA0',
     width: '100%',
-    borderWidth: 0.4,
+    borderWidth: 0.5,
+    marginBottom: 10, 
 
   },
   input: {
