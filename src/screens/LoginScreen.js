@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity,Platform  } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform, StatusBar } from 'react-native';
 import { Image as ExpoImage, ImageBackground as ExpoImageBackground } from 'expo-image';
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
@@ -19,7 +19,7 @@ const LoginScreen = () => {
 
   return (
     <>
-
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
       <ExpoImageBackground
         source={require('../../assets/images/bg-signup.png')}
         contentFit="cover"
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 5,
     elevation: 5,
-    marginTop: Platform.OS === 'ios' ? 40: 60
+    marginTop: Platform.OS === 'ios' ? 40 : 60
   },
   logo: {
     width: 100,

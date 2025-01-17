@@ -40,8 +40,16 @@ const BoxOfficeTab = () => {
   ]);
 
   const navigateToCheckInAllTicketsScreen = () => {
-    navigation.navigate('CheckInAllTickets');
+    const hasSelectedTickets = selectedTickets.some(ticket => ticket.quantity > 0);
+
+    if (!hasSelectedTickets) {
+      alert('Please select at least 1 ticket.');
+      return;
+    }
+    const totalQuantity = selectedTickets.reduce((sum, ticket) => sum + ticket.quantity, 0);
+    navigation.navigate('CheckInAllTickets', { totalTickets: totalQuantity });
   };
+  
 
   const allTickets = {
     'Early Bird': [
@@ -54,23 +62,23 @@ const BoxOfficeTab = () => {
     'Members': [
       { type: 'Members Ticket', price: 30, discountPrice: 25, quantity: 1 },
     ],
-    'Standard': [
-      { type: 'Standard Ticket 1', price: 40, discountPrice: 30, quantity: 2 },
-      { type: 'Standard Ticket 2', price: 60, discountPrice: 50, quantity: 1 },
-      { type: 'Standard Ticket 2', price: 80, discountPrice: 75, quantity: 1 },
-      { type: 'Standard Ticket 2', price: 30, discountPrice: 20, quantity: 1 },
-    ],
-    'VIP': [
-      { type: 'Standard Ticket 1', price: 50, discountPrice: 40, quantity: 2 },
-      { type: 'Standard Ticket 2', price: 30, discountPrice: 20, quantity: 1 },
-      { type: 'Standard Ticket 2', price: 40, discountPrice: 30, quantity: 1 },
-    ],
+    // 'Standard': [
+    //   { type: 'Standard Ticket 1', price: 40, discountPrice: 30, quantity: 2 },
+    //   { type: 'Standard Ticket 2', price: 60, discountPrice: 50, quantity: 1 },
+    //   { type: 'Standard Ticket 2', price: 80, discountPrice: 75, quantity: 1 },
+    //   { type: 'Standard Ticket 2', price: 30, discountPrice: 20, quantity: 1 },
+    // ],
+    // 'VIP': [
+    //   { type: 'Standard Ticket 1', price: 50, discountPrice: 40, quantity: 2 },
+    //   { type: 'Standard Ticket 2', price: 30, discountPrice: 20, quantity: 1 },
+    //   { type: 'Standard Ticket 2', price: 40, discountPrice: 30, quantity: 1 },
+    // ],
   };
 
   const handleTabPress = (tab) => {
     setSelectedTab(tab);
     setSelectedTickets(allTickets[tab] || []);
-    // You can update the `selectedTickets` list based on the tab selection here.
+    // You can update the selectedTickets list based on the tab selection here.
     // Example: Filter the tickets dynamically based on the selected tab
     // setSelectedTickets(filteredTicketsBasedOnTab);
   };

@@ -6,7 +6,11 @@ import CheckInAllPopUp from '../constants/checkInAllPopupticketList';
 import { ticketslist } from '../constants/ticketslist';
 import { Image as ExpoImage } from 'expo-image';
 
-function CheckInAllTickets() {
+const CheckInAllTickets = ({ route }) => {
+    const { totalTickets } = route.params; // Total tickets passed from the previous screen
+    console.log('Tickets List:', ticketslist);
+    console.log('Total Tickets:', totalTickets);
+    const displayedTickets = ticketslist.slice(0, totalTickets);
     return (
         <>
             <Header />
@@ -15,8 +19,7 @@ function CheckInAllTickets() {
             <View style={styles.container}>
                 
                 <View style={styles.popUp}>
-                    <Text style={styles.labeltickets}>Ticket(s) Purchased</Text>
-
+                {totalTickets > 1 && <Text style={styles.labeltickets}>Ticket(s) Purchased</Text>}
                     <ExpoImage
                         source={require('../../assets/images/success-icon.png')}
                         contentFit="contain"
@@ -27,14 +30,18 @@ function CheckInAllTickets() {
                     <Text style={styles.userEmail}>Johndoe@gmail.com</Text>
 
                     <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}>Check-In All</Text>
+                    <Text style={styles.buttonText}>
+              {totalTickets === 1 ? 'Check-In' : `Check-In All`}
+            </Text>
                     </TouchableOpacity>
                 </View>
 
                 {/* Ticket List Section */}
+                {totalTickets > 1 && (
                 <View style={styles.ticketsList}>
-                    <CheckInAllPopUp ticketslist={ticketslist} />
+                    <CheckInAllPopUp ticketslist={displayedTickets} />
                 </View>
+                )}
             </View>
         </>
     );
