@@ -3,7 +3,7 @@ import { Image as ExpoImage, ImageBackground as ExpoImageBackground } from 'expo
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { color } from '../color/color'
+import { color } from '../color/color';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -24,50 +24,52 @@ const LoginScreen = () => {
         source={require('../../assets/images/bg-signup.png')}
         contentFit="cover"
         style={styles.background}
-
       >
+        {/* Wrap everything inside a View */}
+        <View style={{ flex: 1 }}>
+          <View style={styles.topSection}>
+            <ExpoImage
+              source={require('../../assets/images/Hexallo favicon.png')}
+              style={styles.image}
+              contentFit="contain"
+            />
+            <Text style={styles.topText}>Hexallo</Text>
+          </View>
 
-        <View style={styles.topSection}>
-          <ExpoImage
-            source={require('../../assets/images/Hexallo favicon.png')}
-            style={styles.image} contentFit="contain" />
-          <Text style={styles.topText}>Hexallo</Text>
-        </View>
+          <Text style={styles.additionalText} numberOfLines={2}>
+            Get Started{'\n'}to do more!
+          </Text>
 
-        <Text style={styles.additionalText} numberOfLines={2}>Get Started{'\n'}to do more!</Text>
-        <View style={styles.container}>
+          <View style={styles.container}>
+            <Formik
+              initialValues={{ email: '' }}
+              validationSchema={validationSchema}
+              onSubmit={handleSignIn}
+            >
+              {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+                <View style={{ width: '100%' }}>
+                  <Text style={styles.inputHeading}>Email or Phone Number</Text>
+                  <TextInput
+                    style={[styles.input, touched.email && errors.email ? styles.inputError : null]}
+                    placeholder="johndoe@gmail.com"
+                    placeholderTextColor={color.placeholderTxt_24282C}
+                    onChangeText={handleChange('email')}
+                    onBlur={handleBlur('email')}
+                    value={values.email}
+                    keyboardType="email-address"
+                    selectionColor={color.selectField_CEBCA0}
+                  />
+                  {touched.email && errors.email && (
+                    <Text style={styles.errorText}>{errors.email}</Text>
+                  )}
 
-          {/* <Text style={styles.appName}>Sign In</Text>
-          <Text style={styles.labelText}>Enter your email or phone number{'\n'} to Sign In   </Text> */}
-
-          <Formik
-            initialValues={{ email: '' }}
-            validationSchema={validationSchema}
-            onSubmit={handleSignIn}
-          >
-            {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
-              <View style={{ width: '100%' }}>
-                <Text style={styles.inputHeading}>Email or Phone Number</Text>
-                <TextInput
-                  style={[styles.input, touched.email && errors.email ? styles.inputError : null]}
-                  placeholder="johndoe@gmail.com"
-                  placeholderTextColor={color.placeholderTxt_24282C}
-                  onChangeText={handleChange('email')}
-                  onBlur={handleBlur('email')}
-                  value={values.email}
-                  keyboardType="email-address"
-                  selectionColor={color.selectField_CEBCA0}
-                />
-                {touched.email && errors.email && (
-                  <Text style={styles.errorText}>{errors.email}</Text>
-                )}
-
-                <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                  <Text style={styles.buttonText}>Sign In</Text>
-                </TouchableOpacity>
-              </View>
-            )}
-          </Formik>
+                  <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                    <Text style={styles.buttonText}>Sign In</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+            </Formik>
+          </View>
         </View>
       </ExpoImageBackground>
     </>
@@ -116,18 +118,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 5,
     elevation: 5,
-    marginTop: Platform.OS === 'ios' ? 40 : 60
-  },
-  logo: {
-    width: 100,
-    height: 100,
-    marginBottom: 10,
-  },
-  appName: {
-    color: color.brown_3C200A,
-    fontSize: 26,
-    fontWeight: 'bold',
-    marginBottom: 20,
+    marginTop: Platform.OS === 'ios' ? 40 : 60,
   },
   input: {
     width: '100%',
@@ -137,11 +128,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
-  },
-  labelText: {
-    color: "#544B45",
-    textAlign: 'center',
-    fontSize: 14,
   },
   button: {
     backgroundColor: color.btnBrown_AE6F28,
