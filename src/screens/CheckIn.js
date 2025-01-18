@@ -1,6 +1,6 @@
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useState } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View,Platform,StatusBar,Dimensions } from 'react-native';
+import { Button, StyleSheet, Text, TouchableOpacity, View, Platform, StatusBar, Dimensions } from 'react-native';
 import CameraOverlay from '../../components/CameraOverlay';
 import Header from '../../components/header';
 import { color } from '../color/color';
@@ -12,42 +12,42 @@ const HomeScreen = () => {
   const [activeTab, setActiveTab] = useState('CheckIn');
   const { width, height } = Dimensions.get('window');
 
-    const getCameraMarginVertical = () => {
-      if (Platform.OS === 'ios') {
-          if (width === 375) {
-              // iPhone 6/7/8
-              return '25%';
-          } else if (width > 375 && width <= 414) {
-              // iPhone 7 Plus, 8 Plus
-              return '30%';
-          } else {
-              return '30%';
-          }
+  const getCameraMarginVertical = () => {
+    if (Platform.OS === 'ios') {
+      if (width === 375) {
+        // iPhone 6/7/8
+        return '25%';
+      } else if (width > 375 && width <= 414) {
+        // iPhone 7 Plus, 8 Plus
+        return '30%';
       } else {
-          // Android default value
-          return '40%';
+        return '30%';
       }
+    } else {
+      // Android default value
+      return '40%';
+    }
   };
 
   const getCameraMarginHorizontal = () => {
     if (Platform.OS === 'ios') {
-        if (width === 375) {
-            // iPhone 6/7/8
-            return '11%';
-        } else if (width > 375 && width <= 414) {
-            // iPhone 7 Plus, 8 Plus
-            return '13%';
-        } else {
-            return '13%';
-        }
-    } else {
-        // Android default value
+      if (width === 375) {
+        // iPhone 6/7/8
         return '11%';
+      } else if (width > 375 && width <= 414) {
+        // iPhone 7 Plus, 8 Plus
+        return '13%';
+      } else {
+        return '13%';
+      }
+    } else {
+      // Android default value
+      return '11%';
     }
-};
+  };
 
-const cameraMarginHorizontal = getCameraMarginHorizontal();
-const cameraMarginVertical = getCameraMarginVertical();
+  const cameraMarginHorizontal = getCameraMarginHorizontal();
+  const cameraMarginVertical = getCameraMarginVertical();
 
 
   if (!permission) {
@@ -79,9 +79,9 @@ const cameraMarginVertical = getCameraMarginVertical();
 
   return (
     <View style={styles.container}>
-       <StatusBar barStyle="dark-content" backgroundColor="white" />
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
       <Header />
-      <View style={[styles.cameraWrapper,{marginHorizontal: cameraMarginHorizontal,marginVertical: cameraMarginVertical}]}>
+      <View style={[styles.cameraWrapper, { marginHorizontal: cameraMarginHorizontal, marginVertical: cameraMarginVertical }]}>
         <CameraView
           style={styles.camera}
           facing={facing}

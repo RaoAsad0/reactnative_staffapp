@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform } from 'react-native';
 import { Image as ExpoImage, ImageBackground as ExpoImageBackground } from 'expo-image';
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { color } from '../color/color';
+import { StatusBar } from 'expo-status-bar';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -19,13 +20,16 @@ const LoginScreen = () => {
 
   return (
     <>
-      <StatusBar barStyle="dark-content" backgroundColor="white" />
+      <StatusBar
+        style="dark"
+        backgroundColor="transparent"
+        translucent
+      />
       <ExpoImageBackground
         source={require('../../assets/images/bg-signup.png')}
         contentFit="cover"
         style={styles.background}
       >
-        {/* Wrap everything inside a View */}
         <View style={{ flex: 1 }}>
           <View style={styles.topSection}>
             <ExpoImage
@@ -81,6 +85,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 50,
     paddingHorizontal: 20,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0, // Add padding for Android
   },
   image: {
     width: 50,
@@ -91,6 +96,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     fontSize: 15,
+    top: Platform.OS === 'ios' ? 30 : 0,
   },
   additionalText: {
     marginTop: 40,
@@ -99,6 +105,7 @@ const styles = StyleSheet.create({
     lineHeight: 50,
     fontSize: 40,
     fontWeight: 'bold',
+    top: Platform.OS === 'ios' ? 20 : 0,
   },
   topText: {
     color: color.lightBrown_FFF6DF,
@@ -122,10 +129,10 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '100%',
-    height: 50,
+    height: 47,
     borderColor: color.borderBrown_CEBCA0,
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: 10,
     paddingHorizontal: 10,
     marginBottom: 10,
   },
@@ -133,7 +140,7 @@ const styles = StyleSheet.create({
     backgroundColor: color.btnBrown_AE6F28,
     width: '100%',
     height: 50,
-    borderRadius: 5,
+    borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },

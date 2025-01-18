@@ -7,11 +7,11 @@ import {
   TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
-  StatusBar,
 } from 'react-native';
 import { Image as ExpoImage, ImageBackground as ExpoImageBackground } from 'expo-image';
 import { useNavigation } from '@react-navigation/native';
 import { color } from '../color/color';
+import { StatusBar } from 'expo-status-bar';
 
 const OtpLoginScreen = () => {
   const navigation = useNavigation();
@@ -63,7 +63,11 @@ const OtpLoginScreen = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={{ flex: 1 }}>
-        <StatusBar barStyle="dark-content" backgroundColor="white" />
+        <StatusBar
+          style="dark" // Dark text/icons
+          backgroundColor="transparent" // Fully transparent background
+          translucent // Allows the app's content to extend under the status bar
+        />
         <ExpoImageBackground
           source={require('../../assets/images/bg-signup.png')}
           contentFit="cover"
@@ -189,9 +193,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   otpInput: {
-    width: 50,
-    height: 50,
-    borderRadius: 5,
+    width: 40,
+    height: 40,
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: color.borderBrown_CEBCA0,
     textAlign: 'center',
@@ -213,8 +217,8 @@ const styles = StyleSheet.create({
   },
   changeDetailsButton: {
     marginTop: 10,
-    padding: 15,
-    borderWidth: 2,
+    padding: 13,
+    borderWidth: 1,
     borderColor: color.borderBrown_CEBCA0,
     borderRadius: 10,
     alignItems: 'center',

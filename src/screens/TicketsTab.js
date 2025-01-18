@@ -69,7 +69,7 @@ const TicketsTab = ({ tickets }) => {
             <View
                 style={[
                     styles.statusBtn,
-                    { left: statusBtnLeft } 
+                    { left: statusBtnLeft }
                 ]}
             >
                 <TouchableOpacity
@@ -92,7 +92,7 @@ const TicketsTab = ({ tickets }) => {
             </View>
             <View style={styles.imageContainer}>
                 {item.imageUrl && (
-                    <ExpoImage source={item.imageUrl} style={styles.ticketImage} contentFit='cover'/>
+                    <ExpoImage source={item.imageUrl} style={styles.ticketImage} contentFit='cover' />
                 )}
             </View>
         </View>
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 10,
-        marginTop: Platform.OS === 'ios' ? -25 : 0,
+        marginTop: Platform.OS === 'ios' ? -25 : -25,
         borderColor: color.borderBrown_CEBCA0,
         borderWidth: 1,
         height: 45,

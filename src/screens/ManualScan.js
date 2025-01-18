@@ -47,7 +47,7 @@ const ManualScan = () => {
         Enter the name, email, or phone number to{'\n'}search the ticket
       </Text>
 
-      {/* Search Bar */}
+
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchBar}

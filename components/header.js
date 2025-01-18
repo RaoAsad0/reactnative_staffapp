@@ -1,6 +1,6 @@
 // Header.js
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text,Platform,Dimensions } from 'react-native';
+import { View, StyleSheet, Text, Platform, Dimensions } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
 import { color } from '../src/color/color';
 
@@ -9,21 +9,21 @@ const Header = () => {
 
   const getScanMarginLeft = () => {
     if (Platform.OS === 'ios') {
-        if (width === 375) {
-            // iPhone 6/7/8
-            return 90;
-        } else if (width > 375 && width <= 414) {
-            // iPhone 7 Plus, 8 Plus
-            return 125;
-        } else {
-            return 125;
-        }
+      if (width === 375) {
+        // iPhone 6/7/8
+        return 90;
+      } else if (width > 375 && width <= 414) {
+        // iPhone 7 Plus, 8 Plus
+        return 125;
+      } else {
+        return 125;
+      }
     } else {
-        // Android default value
-        return 120;
+      // Android default value
+      return 120;
     }
-};
-const scanMarginLeft = getScanMarginLeft();
+  };
+  const scanMarginLeft = getScanMarginLeft();
 
   return (
     <View style={styles.headerColumn}>
@@ -41,7 +41,7 @@ const scanMarginLeft = getScanMarginLeft();
         <ExpoImage
           source={require('../assets/images/user.png')} style={styles.userIcon} />
         <Text style={styles.userId}>ID: 87621237467</Text>
-        <Text style={[styles.scan,{marginLeft: scanMarginLeft }]}>Scans</Text>
+        <Text style={[styles.scan, { marginLeft: scanMarginLeft }]}>Scans</Text>
         <View style={styles.count}>
           <Text style={styles.countColor}>48</Text></View>
       </View>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     width: "100%",
-    marginTop: Platform.OS === 'ios' ? 20 : 10,
+    marginTop: Platform.OS === 'ios' ? 20 : 25,
 
   },
   profileId: {
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     height: 28
   },
   scan: {
-   left: 5
+    left: 5
   },
   count: {
     marginLeft: Platform.OS === 'ios' ? 30 : 15,
