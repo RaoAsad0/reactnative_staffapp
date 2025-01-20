@@ -13,7 +13,7 @@ export const ticketslist = [
         price: 30,
         date: 'Sat, 02 2025',
         status: 'Check-In',
-
+        statusScanned: 'Scanned', 
     },
     {
         id: '#12389651344',

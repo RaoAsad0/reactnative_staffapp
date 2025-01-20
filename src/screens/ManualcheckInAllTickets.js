@@ -6,20 +6,20 @@ import CheckInAllPopUp from '../constants/checkInAllPopupticketList';
 import { ticketslist } from '../constants/ticketslist';
 import { Image as ExpoImage } from 'expo-image';
 
-const CheckInAllTickets = ({ route }) => {
-    const { totalTickets,email } = route.params;
+const ManualCheckInAllTickets = ({ route }) => {
+    const { total } = route.params;
     console.log('Tickets List:', ticketslist);
-    console.log('Total Tickets:', totalTickets);
-    const displayedTickets = ticketslist.slice(0, totalTickets);
+    console.log('Total Tickets:', total);
+    const displayedTickets = ticketslist.slice(0, total);
     return (
         <>
             <Header />
 
             <StatusBar barStyle="dark-content" backgroundColor="white" />
             <View style={styles.container}>
-                
+
                 <View style={styles.popUp}>
-                {totalTickets > 1 && <Text style={styles.labeltickets}>Ticket(s) Purchased</Text>}
+                    {/* {total > 1 && <Text style={styles.labeltickets}>Ticket(s) Purchased</Text>} */}
                     <ExpoImage
                         source={require('../../assets/images/success-icon.png')}
                         contentFit="contain"
@@ -27,20 +27,20 @@ const CheckInAllTickets = ({ route }) => {
                     />
 
                     <Text style={styles.ticketHolder}>Ticket Holder</Text>
-                    <Text style={styles.userEmail}>{email}</Text>
+                    <Text style={styles.userEmail}>johndoe@gmail.com</Text>
 
-                    <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>
-              {totalTickets === 1 ? 'Check-In' : `Check-In All`}
-            </Text>
-                    </TouchableOpacity>
+                    {total === 1 && (
+                        <TouchableOpacity style={styles.button}>
+                            <Text style={styles.buttonText}>Check-In</Text>
+                        </TouchableOpacity>
+                    )}
                 </View>
 
                 {/* Ticket List Section */}
-                {totalTickets > 1 && (
-                <View style={styles.ticketsList}>
-                    <CheckInAllPopUp ticketslist={displayedTickets} />
-                </View>
+                {total > 1 && (
+                    <View style={styles.ticketsList}>
+                        <CheckInAllPopUp ticketslist={displayedTickets} />
+                    </View>
                 )}
             </View>
         </>
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 20,
-        backgroundColor: color.bgLight, // Optional: Add a background color for clarity
+        backgroundColor: color.bgLight,
     },
     popUp: {
         alignItems: 'center',
@@ -95,12 +95,11 @@ const styles = StyleSheet.create({
     },
     ticketsList: {
         marginTop: 20,
-        flex: 1, 
+        flex: 1,
     },
     userEmail: {
         color: color.brown_3C200A,
         fontSize: 16,
-        fontWeight: 'bold',
         marginTop: 10,
     },
     successImageIcon: {
@@ -110,4 +109,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default CheckInAllTickets;
+export default ManualCheckInAllTickets;

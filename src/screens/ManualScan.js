@@ -4,11 +4,12 @@ import Header from '../../components/header';
 import { color } from '../color/color';
 import { Image as ExpoImage } from 'expo-image';
 import { attendeeslist } from '../constants/attendeeslist';
+import { useNavigation } from '@react-navigation/native';
 
 const ManualScan = () => {
+  const navigation = useNavigation();
   const [searchText, setSearchText] = useState('');
 
-  // Filter tickets based on search text
   const filterTickets = () => {
     if (!searchText) return attendeeslist;
     return attendeeslist.filter(
@@ -22,7 +23,10 @@ const ManualScan = () => {
   const filteredTickets = filterTickets();
 
   const renderItem = ({ item }) => (
-    <View style={styles.ticketCard}>
+    <TouchableOpacity
+      style={styles.ticketCard}
+      onPress={() => navigation.navigate('ManualCheckInAllTickets', { ticket: item, total: item.total })}
+    >
       <View style={styles.ticketRow}>
         {/* Left Column */}
         <View style={styles.leftColumn}>
@@ -36,7 +40,7 @@ const ManualScan = () => {
           <Text style={styles.total}>{item.total}</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (

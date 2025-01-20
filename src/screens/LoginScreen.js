@@ -10,7 +10,11 @@ const LoginScreen = () => {
   const navigation = useNavigation();
 
   const validationSchema = Yup.object().shape({
-    email: Yup.string().email('Invalid email').required('Required'),
+    email: Yup.string()
+      .test('emailOrPhone', 'Invalid email or phone number', (value) =>
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) || /^[0-9]{10,15}$/.test(value)
+      )
+      .required('Required'),
   });
 
   const handleSignIn = (values) => {
@@ -125,7 +129,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 5,
     elevation: 5,
-    marginTop: Platform.OS === 'ios' ? 40 : 60,
+    marginTop: Platform.OS === 'ios' ? 40 : 20,
   },
   input: {
     width: '100%',

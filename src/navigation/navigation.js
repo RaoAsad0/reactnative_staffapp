@@ -6,6 +6,7 @@ import OtpLoginScreen from '../screens/OtpLoginScreen';
 import TicketsTab from '../screens/TicketsTab';
 import BoxOfficeTab from '../screens/BoxOfficeTab';
 import CheckInAllTickets from '../screens/CheckInAllTickets';
+import ManualCheckInAllTickets from '../screens/ManualcheckInAllTickets';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,7 @@ function Navigation() {
       <Stack.Screen name="TicketsTab" component={TicketsTab} options={{ headerShown: false,unmountOnBlur: true }} /> 
       <Stack.Screen name="BoxOfficeTab" component={BoxOfficeTab} options={{ headerShown: false,unmountOnBlur: true }} /> 
       <Stack.Screen name="CheckInAllTickets" component={CheckInAllTickets} options={{ headerShown: false,unmountOnBlur: true }} /> 
+      <Stack.Screen name="ManualCheckInAllTickets" component={ManualCheckInAllTickets} options={{ headerShown: false,unmountOnBlur: true }} /> 
     </Stack.Navigator>
   );
 }

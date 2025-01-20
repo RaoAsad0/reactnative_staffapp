@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, ScrollView, TextInput,Platform,Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, ScrollView, TextInput, Platform, Dimensions } from 'react-native';
 import { boxofficetablist } from '../constants/boxofficetablist';
 import { Ionicons } from '@expo/vector-icons';
 import { color } from '../color/color';
@@ -13,23 +13,24 @@ const BoxOfficeTab = () => {
   const navigation = useNavigation()
   const [selectedTab, setSelectedTab] = useState(boxofficetablist[0]);
   const [email, setEmail] = useState('');
+  const [paymentOption, setPaymentOption] = useState('');
   const { width } = Dimensions.get('window');
 
   const getPaddingHorizontalToPayment = () => {
-      if (Platform.OS === 'ios') {
-          if (width === 375) {
-              // iPhone 6/7/8
-              return 35;
-          } else if (width > 375 && width <= 414) {
-              // iPhone 7 Plus, 8 Plus
-              return 45;
-          } else {
-              return 45;
-          }
+    if (Platform.OS === 'ios') {
+      if (width === 375) {
+        // iPhone 6/7/8
+        return 35;
+      } else if (width > 375 && width <= 414) {
+        // iPhone 7 Plus, 8 Plus
+        return 45;
       } else {
-          // Android default value
-          return 43;
+        return 45;
       }
+    } else {
+      // Android default value
+      return 43;
+    }
   };
 
   const paymentPaddingHorizontal = getPaddingHorizontalToPayment();
@@ -40,16 +41,20 @@ const BoxOfficeTab = () => {
   ]);
 
   const navigateToCheckInAllTicketsScreen = () => {
-    const hasSelectedTickets = selectedTickets.some(ticket => ticket.quantity > 0);
-
-    if (!hasSelectedTickets) {
-      alert('Please select at least 1 ticket.');
+    if (!email) {
+      alert('Please enter a valid email or phone number.');
       return;
     }
+
+    if (!paymentOption) {
+      alert('Please select a payment option.');
+      return;
+    }
+    
     const totalQuantity = selectedTickets.reduce((sum, ticket) => sum + ticket.quantity, 0);
-    navigation.navigate('CheckInAllTickets', { totalTickets: totalQuantity });
+    navigation.navigate('CheckInAllTickets', { totalTickets: totalQuantity,email,paymentOption });
   };
-  
+
 
   const allTickets = {
     'Early Bird': [
@@ -104,8 +109,13 @@ const BoxOfficeTab = () => {
 
 
   const validationSchema = Yup.object().shape({
-    email: Yup.string().email('Invalid email').required('Required'),
+    email: Yup.string()
+      .test('emailOrPhone', 'Invalid email or phone number', (value) =>
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) || /^[0-9]{10,15}$/.test(value)
+      )
+      .required('Required'),
   });
+  
 
   const QuantitySelector = ({ quantity, onIncrease, onDecrease }) => {
     return (
@@ -169,7 +179,7 @@ const BoxOfficeTab = () => {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
       <View style={styles.tabContainer}>
-      <FlatList
+        <FlatList
           horizontal
           data={Object.keys(allTickets)}
           renderItem={renderTab}
@@ -206,7 +216,10 @@ const BoxOfficeTab = () => {
                 style={[styles.input, touched.email && errors.email ? styles.inputError : null]}
                 placeholder="johndoe@gmail.com"
                 placeholderTextColor={color.placeholderTxt_24282C}
-                onChangeText={handleChange('email')}
+                onChangeText={(text) => {
+                  handleChange('email')(text);
+                  setEmail(text);
+                }}
                 onBlur={handleBlur('email')}
                 value={values.email}
                 keyboardType="email-address"
@@ -222,32 +235,39 @@ const BoxOfficeTab = () => {
           <Text>Pay With</Text>
         </View>
         <View style={styles.paymentOptions}>
-          <TouchableOpacity style={[styles.paymentOption,{paddingHorizontal: paymentPaddingHorizontal}]}>
+          <TouchableOpacity style={[styles.paymentOption,paymentOption === 'Cash' && { backgroundColor: '#F7E4B6' }, { paddingHorizontal: paymentPaddingHorizontal }]} onPress={() => setPaymentOption('Cash')}>
             <ExpoImage
               source={require('../../assets/images/camera-icon.png')}
               contentFit="contain"
               style={styles.cameraImage}
-              />
+            />
             <Text style={styles.paymentOptionText}>Cash</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.paymentOption,{paddingHorizontal: paymentPaddingHorizontal}]}>
-          <ExpoImage
+          <TouchableOpacity style={[styles.paymentOption,paymentOption === 'Debit/Credit Card' && { backgroundColor: '#F7E4B6' },{ paddingHorizontal: paymentPaddingHorizontal }]} onPress={() => setPaymentOption('Debit/Credit Card')}>
+            <ExpoImage
               source={require('../../assets/images/card-icon.png')}
               contentFit="contain"
               style={styles.cardImage}
-              />
+            />
             <Text style={styles.paymentOptionText}>Debit/Credit Card</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.paymentOptioncard}>
-        <ExpoImage
-              source={require('../../assets/images/mobilecard-icon.png')}
-              contentFit="contain"
-              style={styles.mobileCardImage}
-              />
+        <TouchableOpacity style={[styles.paymentOptioncard,paymentOption === 'Card/Mobile Money' && { backgroundColor: '#F7E4B6' }]} onPress={() => setPaymentOption('Card/Mobile Money')}>
+          <ExpoImage
+            source={require('../../assets/images/mobilecard-icon.png')}
+            contentFit="contain"
+            style={styles.mobileCardImage}
+          />
           <Text style={styles.paymentOptionText}>Card/Mobile Money</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.getTicketsButton} onPress={navigateToCheckInAllTicketsScreen}>
+        <TouchableOpacity
+          style={[
+            styles.getTicketsButton,
+            !selectedTickets.some(ticket => ticket.quantity > 0) && { backgroundColor: '#AE6F28A0' },
+          ]}
+          onPress={navigateToCheckInAllTicketsScreen}
+          disabled={!selectedTickets.some(ticket => ticket.quantity > 0)}
+        >
           <Text style={styles.getTicketsButtonText}>Get Ticket(s)</Text>
         </TouchableOpacity>
       </View>
@@ -381,7 +401,7 @@ const styles = StyleSheet.create({
     gap: 5
   },
   paymentOptionText: {
-   margin: Platform.OS === 'ios' ? 2 : 0,
+    margin: Platform.OS === 'ios' ? 2 : 0,
     color: color.black_544B45
   },
   getTicketsButton: {
@@ -477,7 +497,7 @@ const styles = StyleSheet.create({
     borderColor: '#CEBCA0',
     width: '100%',
     borderWidth: 0.5,
-    marginBottom: 10, 
+    marginBottom: 10,
 
   },
   input: {
@@ -507,15 +527,15 @@ const styles = StyleSheet.create({
     top: 25,
     color: color.brown_3C200A
   },
-  cameraImage:{
+  cameraImage: {
     width: 20,
     height: 20,
   },
-  cardImage:{
+  cardImage: {
     width: 20,
     height: 20,
   },
-  mobileCardImage:{
+  mobileCardImage: {
     width: 24,
     height: 24,
   },

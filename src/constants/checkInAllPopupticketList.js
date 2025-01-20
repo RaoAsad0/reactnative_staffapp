@@ -1,7 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View,FlatList, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
-import { Image as ExpoImage, ImageBackground as ExpoImageBackground } from 'expo-image';
-import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, Text, View,FlatList, TouchableOpacity} from 'react-native';
 import { color } from '../color/color';
 
 const CheckInAllPopup = ({ticketslist}) => {

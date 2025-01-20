@@ -64,9 +64,9 @@ const OtpLoginScreen = () => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={{ flex: 1 }}>
         <StatusBar
-          style="dark" // Dark text/icons
-          backgroundColor="transparent" // Fully transparent background
-          translucent // Allows the app's content to extend under the status bar
+          style="dark"
+          backgroundColor="transparent"
+          translucent
         />
         <ExpoImageBackground
           source={require('../../assets/images/bg-signup.png')}
