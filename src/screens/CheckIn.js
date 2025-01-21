@@ -4,11 +4,13 @@ import { Button, StyleSheet, Text, TouchableOpacity, View, Platform, StatusBar, 
 import CameraOverlay from '../../components/CameraOverlay';
 import Header from '../../components/header';
 import { color } from '../color/color';
+import { Image as ExpoImage } from 'expo-image';
 
 const HomeScreen = () => {
   const [facing, setFacing] = useState('back');
   const [permission, requestPermission] = useCameraPermissions();
   const [scannedData, setScannedData] = useState(null);
+  const [scanResult, setScanResult] = useState(null);  // Store scan result text and icon
   const [activeTab, setActiveTab] = useState('CheckIn');
   const { width, height } = Dimensions.get('window');
 
@@ -49,19 +51,16 @@ const HomeScreen = () => {
   const cameraMarginHorizontal = getCameraMarginHorizontal();
   const cameraMarginVertical = getCameraMarginVertical();
 
-
   if (!permission) {
-
     return <View />;
   }
 
   if (!permission.granted) {
-
     return (
       <View style={styles.container}>
         <Header activeTab={activeTab} />
         <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
-        <Button onPress={requestPermission} title="grant permission" />
+        <Button onPress={requestPermission} title="Grant permission" />
       </View>
     );
   }
@@ -73,7 +72,30 @@ const HomeScreen = () => {
   const handleBarCodeScanned = ({ data }) => {
     if (!scannedData) {
       setScannedData(data);
-      console.log("data", data);
+      console.log("Scanned data:", data);
+
+      // Handle the scan results based on predefined QR codes
+      if (data === '123') {
+        setScanResult({
+          text: 'Scan successful', color: "green",
+          icon: <ExpoImage source={require('../../assets/images/qr-success-icon.png')} style={{ width: 24, height: 24, backgroundColor: 'green' }} />
+        });
+      } else if (data === '456') {
+        setScanResult({
+          text: 'Scan already', color: "brown",
+          icon: <ExpoImage source={require('../../assets/images/cross-icon.png')} style={{ width: 24, height: 24, backgroundColor: 'brown' }} />
+        });
+      } else if (data === '789') {
+        setScanResult({
+          text: 'Scan unsuccessful', color: "red",
+          icon: <ExpoImage source={require('../../assets/images/cross-icon.png')} style={{ width: 24, height: 24, backgroundColor: 'red' }} />
+        });
+      } else {
+        setScanResult({
+          text: 'Invalid QR code', color: "red",
+          icon: <ExpoImage source={require('../../assets/images/cross-icon.png')} style={{ width: 24, height: 24, backgroundColor: 'red' }} />
+        });
+      }
     }
   };
 
@@ -85,13 +107,32 @@ const HomeScreen = () => {
         <CameraView
           style={styles.camera}
           facing={facing}
-          onBarcodeScanned={({ data }) => {
-            console.log("Scanned data:", data);
-            setScannedData(data);
-          }}
+          onBarcodeScanned={handleBarCodeScanned}
         />
         <CameraOverlay />
       </View>
+      {scanResult && (
+  <View style={styles.containerstatus}>
+    <View style={styles.scanResultsContainer}>
+      <View style={styles.scaniconresult}>{scanResult.icon}</View>
+      <View style={styles.scanResults}>
+        <Text style={{ color: scanResult.color }}>{scanResult.text}</Text>
+        <Text>28-12-2024 7:00 PM</Text>
+      </View>
+      <View style={styles.buttonsContainer}>
+        <View style={styles.detailButton}>
+          <Text style={styles.detailColor}>Details</Text>
+        </View>
+        {(scanResult.text === 'Scan unsuccessful' || scanResult.text === 'Invalid QR code') && (
+          <View style={styles.noteButton}>
+            <Text style={styles.noteColor}>Note</Text>
+          </View>
+        )}
+      </View>
+    </View>
+  </View>
+)}
+
     </View>
   );
 };
@@ -99,7 +140,6 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.white_FFFFFF
   },
   cameraWrapper: {
     justifyContent: 'center',
@@ -114,6 +154,69 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+  containerstatus: {
+  backgroundColor: 'white',
+  borderColor: 'white',
+paddingRight:16,
+  position: 'absolute',
+  bottom: Platform.OS === 'ios' ? 0 : 0,
+  width: '100%',
+},
+
+scanResultsContainer: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  width: '100%',
+  justifyContent: 'space-between',
+},
+
+scanResults: {
+  flexDirection: 'column',
+  left: 10,
+  gap: 5,
+},
+
+scaniconresult: {
+  width: 50,
+  height: 50,
+  backgroundColor: 'red',
+  alignItems: 'center',
+  justifyContent: 'center',
+  
+},
+
+buttonsContainer: {
+  flexDirection: 'row',
+  gap: 10,
+  justifyContent: 'flex-end',
+  flex: 1,
+},
+
+detailButton: {
+  backgroundColor: '#AE6F28',
+  borderRadius: 4,
+  width: 66,
+  height: 30,
+  alignItems: 'center',
+  justifyContent: 'center',
+},
+
+noteButton: {
+  backgroundColor: '#2F251D',
+  borderRadius: 4,
+  width: 66,
+  height: 30,
+  alignItems: 'center',
+  justifyContent: 'center',
+},
+
+detailColor: {
+  color: '#FFF6DF',
+},
+
+noteColor: {
+  color: '#FFF6DF',
+},
 });
 
 export default HomeScreen;

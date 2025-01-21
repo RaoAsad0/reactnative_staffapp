@@ -235,30 +235,42 @@ const BoxOfficeTab = () => {
           <Text>Pay With</Text>
         </View>
         <View style={styles.paymentOptions}>
-          <TouchableOpacity style={[styles.paymentOption,paymentOption === 'Cash' && { backgroundColor: '#F7E4B6' }, { paddingHorizontal: paymentPaddingHorizontal }]} onPress={() => setPaymentOption('Cash')}>
+          <TouchableOpacity style={[styles.paymentOption,paymentOption === 'Cash' && { borderColor: '#AE6F28'}, { paddingHorizontal: paymentPaddingHorizontal }]} onPress={() => setPaymentOption('Cash')}>
             <ExpoImage
-              source={require('../../assets/images/camera-icon.png')}
+             source={
+              paymentOption === 'Cash'
+                ? require('../../assets/images/camera-active-icon.png')
+                : require('../../assets/images/camera-icon.png')
+            }
               contentFit="contain"
               style={styles.cameraImage}
             />
-            <Text style={styles.paymentOptionText}>Cash</Text>
+            <Text  style={[styles.paymentOptionText,paymentOption === 'Cash' && { color: '##5A2F0E'}]}>Cash</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.paymentOption,paymentOption === 'Debit/Credit Card' && { backgroundColor: '#F7E4B6' },{ paddingHorizontal: paymentPaddingHorizontal }]} onPress={() => setPaymentOption('Debit/Credit Card')}>
+          <TouchableOpacity style={[styles.paymentOption,paymentOption === 'Debit/Credit Card' && { borderColor: '#AE6F28'},{ paddingHorizontal: paymentPaddingHorizontal }]} onPress={() => setPaymentOption('Debit/Credit Card')}>
             <ExpoImage
-              source={require('../../assets/images/card-icon.png')}
+              source={
+                paymentOption === 'Debit/Credit Card'
+                  ? require('../../assets/images/card-icon-selected.png')
+                  : require('../../assets/images/card-icon.png')
+              }
               contentFit="contain"
               style={styles.cardImage}
             />
-            <Text style={styles.paymentOptionText}>Debit/Credit Card</Text>
+            <Text style={[styles.paymentOptionText,paymentOption === 'Debit/Credit Card' && { color: '#5A2F0E'}]}>Debit/Credit Card</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={[styles.paymentOptioncard,paymentOption === 'Card/Mobile Money' && { backgroundColor: '#F7E4B6' }]} onPress={() => setPaymentOption('Card/Mobile Money')}>
+        <TouchableOpacity style={[styles.paymentOptioncard,paymentOption === 'Card/Mobile Money' && { borderColor: '#AE6F28'}]} onPress={() => setPaymentOption('Card/Mobile Money')}>
           <ExpoImage
-            source={require('../../assets/images/mobilecard-icon.png')}
+            source={
+              paymentOption === 'Card/Mobile Money'
+                ? require('../../assets/images/mobilecard-active-icon.png')
+                : require('../../assets/images/mobilecard-icon.png')
+            }
             contentFit="contain"
             style={styles.mobileCardImage}
           />
-          <Text style={styles.paymentOptionText}>Card/Mobile Money</Text>
+          <Text style={[styles.paymentOptionText,paymentOption === 'Card/Mobile Money' && { color: '#5A2F0E'}]}>Card/Mobile Money</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
