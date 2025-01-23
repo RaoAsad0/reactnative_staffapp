@@ -9,7 +9,7 @@ export const getFormattedDate = () => {
     const minutes = String(currentDate.getMinutes()).padStart(2, '0');
     const isPM = hours >= 12;
     const formattedHours = hours % 12 || 12; // Convert 24-hour time to 12-hour format
-    const ampm = isPM ? 'Pm' : 'Am';
+    const ampm = isPM ? 'PM' : 'AM';
   
     // Combine the parts to match the desired format
     return `${day}-${month}-${year} ${formattedHours}:${minutes} ${ampm}`;

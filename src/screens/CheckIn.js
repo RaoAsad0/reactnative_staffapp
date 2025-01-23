@@ -1,11 +1,12 @@
 import { CameraView, useCameraPermissions } from 'expo-camera';
-import { useState } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View, Platform, StatusBar, Dimensions } from 'react-native';
+import { useState, useEffect } from 'react';
+import { Button, StyleSheet, Text, TouchableOpacity, View, Platform, StatusBar, Dimensions,TextInput } from 'react-native';
 import CameraOverlay from '../../components/CameraOverlay';
 import Header from '../../components/header';
 import { color } from '../color/color';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { getFormattedDate } from '../constants/dateAndTime';
+import NoteModal from '../constants/noteModal';
 
 const HomeScreen = () => {
   const [facing, setFacing] = useState('back');
@@ -15,18 +16,41 @@ const HomeScreen = () => {
   const [scanning, setScanning] = useState(false);
   const [scanTime, setScanTime] = useState(null);
   const [activeTab, setActiveTab] = useState('CheckIn');
+  const [linePosition, setLinePosition] = useState(0);
+  const [movingDown, setMovingDown] = useState(true);
+  const [noteModalVisible, setNoteModalVisible] = useState(false);
   const { width, height } = Dimensions.get('window');
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setLinePosition((prevPosition) => {
+        if (movingDown && prevPosition >= 225) { // Reverse at the bottom
+          setMovingDown(false);
+          return prevPosition - 2;
+        } else if (!movingDown && prevPosition <= 0) { // Reverse at the top
+          setMovingDown(true);
+          return prevPosition + 2;
+        } else {
+          return movingDown ? prevPosition + 2 : prevPosition - 2;
+        }
+      });
+    }, 2);
+
+    return () => clearInterval(intervalId);
+  }, [movingDown]);
+
+
 
   const getCameraMarginVertical = () => {
     if (Platform.OS === 'ios') {
       if (width === 375) {
         // iPhone 6/7/8
-        return '25%';
+        return '20%';
       } else if (width > 375 && width <= 414) {
         // iPhone 7 Plus, 8 Plus
-        return '30%';
+        return '25%';
       } else {
-        return '30%';
+        return '25%';
       }
     } else {
       // Android default value
@@ -38,7 +62,7 @@ const HomeScreen = () => {
     if (Platform.OS === 'ios') {
       if (width === 375) {
         // iPhone 6/7/8
-        return '11%';
+        return '10%';
       } else if (width > 375 && width <= 414) {
         // iPhone 7 Plus, 8 Plus
         return '13%';
@@ -62,8 +86,7 @@ const HomeScreen = () => {
     return (
       <View style={styles.container}>
         <Header activeTab={activeTab} />
-        <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
-        <Button onPress={requestPermission} title="Grant permission" />
+        requestPermission()
       </View>
     );
   }
@@ -75,7 +98,6 @@ const HomeScreen = () => {
   const handleBarCodeScanned = ({ data }) => {
     if (scanning) return;
 
-    // Start scanning process
     setScanning(true);
     setScannedData(data);
     setScanTime(getFormattedDate());
@@ -111,6 +133,10 @@ const HomeScreen = () => {
     }, 1000);
   };
 
+  const handleNoteButtonPress = () => {
+    setNoteModalVisible(true); // Show NoteModal when Note button is pressed
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
@@ -121,7 +147,9 @@ const HomeScreen = () => {
           facing={facing}
           onBarcodeScanned={scanning ? undefined : handleBarCodeScanned}
         />
-        <CameraOverlay />
+        <CameraOverlay linePosition={linePosition}
+        //  scannedData={scannedData}
+        />
       </View>
       {scanResult && (
         <View style={styles.containerstatus}>
@@ -138,15 +166,15 @@ const HomeScreen = () => {
                 <Text style={styles.detailColor}>Details</Text>
               </View>
               {(scanResult.text === 'Scan unsuccessful' || scanResult.text === 'Invalid QR code' || scanResult.text === 'Scan already') && (
-                <View style={styles.noteButton}>
+                <TouchableOpacity style={styles.noteButton} onPress={handleNoteButtonPress}>
                   <Text style={styles.noteColor}>Note</Text>
-                </View>
+                </TouchableOpacity>
               )}
             </View>
           </View>
         </View>
       )}
-
+ {noteModalVisible && <NoteModal visible={noteModalVisible} onAddNote={() => setNoteModalVisible(false) } onCancel={() => setNoteModalVisible(false)} />}
     </View>
   );
 };
@@ -154,6 +182,7 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   cameraWrapper: {
     justifyContent: 'center',
@@ -170,11 +199,16 @@ const styles = StyleSheet.create({
   },
   containerstatus: {
     backgroundColor: 'white',
-    borderColor: 'white',
+    borderColor: 'black',
     paddingRight: 16,
     position: 'absolute',
     bottom: Platform.OS === 'ios' ? 0 : 0,
     width: '100%',
+    shadowColor: 'black', // Shadow color
+    shadowOffset: { width: 0, height: 2 }, // Shadow offset
+    shadowOpacity: 0.2, // Shadow opacity
+    shadowRadius: 6, // Shadow blur radius
+    elevation: 10, // Shadow for Android
   },
 
   scanResultsContainer: {
@@ -239,7 +273,34 @@ const styles = StyleSheet.create({
   timeColor: {
     color: '#766F6A',
     fontSize: 12
-  }
+  },
+  noteModal: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    elevation: 5, 
+  },
+  noteModalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  noteInput: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 15,
+  },
+  addNoteButton: {
+    backgroundColor: '#4CAF50', 
+    padding: 10,
+    borderRadius: 5,
+  },
 });
 
 export default HomeScreen;

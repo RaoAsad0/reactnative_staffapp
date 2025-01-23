@@ -34,7 +34,7 @@ const Header = () => {
         <Text style={styles.cityName}>Accra</Text>
         <Text style={styles.date}>28-12-2024</Text>
         <Text style={styles.date}>at</Text>
-        <Text style={styles.time}>7:00 Pm</Text>
+        <Text style={styles.time}>7:00 PM</Text>
       </View>
 
       <View style={styles.profileId}>
