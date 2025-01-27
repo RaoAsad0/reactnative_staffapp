@@ -7,6 +7,7 @@ import TicketsTab from '../screens/TicketsTab';
 import BoxOfficeTab from '../screens/BoxOfficeTab';
 import CheckInAllTickets from '../screens/CheckInAllTickets';
 import ManualCheckInAllTickets from '../screens/ManualcheckInAllTickets';
+import TicketScanned from '../screens/TicketScanned';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ function Navigation() {
       <Stack.Screen name="BoxOfficeTab" component={BoxOfficeTab} options={{ headerShown: false,unmountOnBlur: true }} /> 
       <Stack.Screen name="CheckInAllTickets" component={CheckInAllTickets} options={{ headerShown: false,unmountOnBlur: true }} /> 
       <Stack.Screen name="ManualCheckInAllTickets" component={ManualCheckInAllTickets} options={{ headerShown: false,unmountOnBlur: true }} /> 
+      <Stack.Screen name="TicketScanned" component={TicketScanned} options={{ headerShown: false,unmountOnBlur: true }} /> 
     </Stack.Navigator>
   );
 }

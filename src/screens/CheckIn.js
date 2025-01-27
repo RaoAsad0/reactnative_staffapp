@@ -1,14 +1,16 @@
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useState, useEffect } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View, Platform, StatusBar, Dimensions,TextInput } from 'react-native';
+import { Button, StyleSheet, Text, TouchableOpacity, View, Platform, StatusBar, Dimensions } from 'react-native';
 import CameraOverlay from '../../components/CameraOverlay';
 import Header from '../../components/header';
 import { color } from '../color/color';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { getFormattedDate } from '../constants/dateAndTime';
 import NoteModal from '../constants/noteModal';
+import { useNavigation } from '@react-navigation/native';
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
   const [facing, setFacing] = useState('back');
   const [permission, requestPermission] = useCameraPermissions();
   const [scannedData, setScannedData] = useState(null);
@@ -19,7 +21,14 @@ const HomeScreen = () => {
   const [linePosition, setLinePosition] = useState(0);
   const [movingDown, setMovingDown] = useState(true);
   const [noteModalVisible, setNoteModalVisible] = useState(false);
+  const [notes, setNotes] = useState([]);
+  const [noteCount, setNoteCount] = useState(0);
+  const [noteToEdit, setNoteToEdit] = useState(null);
   const { width, height } = Dimensions.get('window');
+
+  useEffect(() => {
+    setNoteCount(Object.keys(notes).length);
+  }, [notes]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -104,19 +113,19 @@ const HomeScreen = () => {
 
     if (data === '123') {
       setScanResult({
-        text: 'Scan successful',
+        text: 'Scan Successful',
         color: '#4BB543',
         icon: <MaterialIcons name="check" size={24} color="white" backgroundColor="#4BB543" />,
       });
     } else if (data === '456') {
       setScanResult({
-        text: 'Scan already',
+        text: 'Scan Already',
         color: '#D8A236',
         icon: <MaterialIcons name="close" size={24} color="white" backgroundColor="#D8A236" />,
       });
     } else if (data === '789') {
       setScanResult({
-        text: 'Scan unsuccessful',
+        text: 'Scan Unsuccessful',
         color: '#ED4337',
         icon: <MaterialIcons name="close" size={24} color="white" backgroundColor="#ED4337" />,
       });
@@ -133,9 +142,43 @@ const HomeScreen = () => {
     }, 1000);
   };
 
-  const handleNoteButtonPress = () => {
-    setNoteModalVisible(true); // Show NoteModal when Note button is pressed
+  const handleAddNote = (newNote) => {
+    if (newNote.trim().length > 0) { // Only add non-empty notes
+      setNotes((prevNotes) => ({
+        ...prevNotes,
+        [scannedData]: newNote,
+      }));
+    }
+    setNoteModalVisible(false); // Close the modal regardless
   };
+
+  const handleNoteButtonPress = () => {
+    if (noteCount === 1) {
+      navigation.navigate('TicketScanned', {
+        note: notes[scannedData] || '',
+      });
+    } else {
+      const existingNote = notes[scannedData] || '';
+      setNoteToEdit(existingNote);
+      setNoteModalVisible(true);
+    }
+  };
+
+  // Edit existing note
+  const handleEditNote = (editedNote) => {
+    setNotes((prevNotes) => ({
+      ...prevNotes,
+      [scannedData]: editedNote,
+    }));
+    setNoteModalVisible(false);
+  };
+
+  const handleDetailButtonPress = () => {
+    navigation.navigate('TicketScanned', {
+      note: notes[scannedData] || '',
+    });
+  };
+
 
   return (
     <View style={styles.container}>
@@ -162,19 +205,26 @@ const HomeScreen = () => {
               <Text style={styles.timeColor}>{scanTime}</Text>
             </View>
             <View style={styles.buttonsContainer}>
-              <View style={styles.detailButton}>
+              <TouchableOpacity style={styles.detailButton} onPress={handleDetailButtonPress}>
                 <Text style={styles.detailColor}>Details</Text>
-              </View>
-              {(scanResult.text === 'Scan unsuccessful' || scanResult.text === 'Invalid QR code' || scanResult.text === 'Scan already') && (
+              </TouchableOpacity>
+              {(scanResult.text === 'Scan Unsuccessful' || scanResult.text === 'Invalid QR code' || scanResult.text === 'Scan Already') && (
                 <TouchableOpacity style={styles.noteButton} onPress={handleNoteButtonPress}>
                   <Text style={styles.noteColor}>Note</Text>
+                  {noteCount > 0 && (
+                    <View style={styles.greyCircle}>
+                      <View style={styles.redCircle}>
+                        <Text style={styles.redCircleText}>{noteCount}</Text>
+                      </View>
+                    </View>
+                  )}
                 </TouchableOpacity>
               )}
             </View>
           </View>
         </View>
       )}
- {noteModalVisible && <NoteModal visible={noteModalVisible} onAddNote={() => setNoteModalVisible(false) } onCancel={() => setNoteModalVisible(false)} />}
+      {noteModalVisible && <NoteModal visible={noteModalVisible} onAddNote={handleAddNote} onCancel={() => setNoteModalVisible(false)} initialNote={noteToEdit} />}
     </View>
   );
 };
@@ -204,11 +254,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: Platform.OS === 'ios' ? 0 : 0,
     width: '100%',
-    shadowColor: 'black', // Shadow color
-    shadowOffset: { width: 0, height: 2 }, // Shadow offset
-    shadowOpacity: 0.2, // Shadow opacity
-    shadowRadius: 6, // Shadow blur radius
-    elevation: 10, // Shadow for Android
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 10,
   },
 
   scanResultsContainer: {
@@ -255,6 +305,36 @@ const styles = StyleSheet.create({
     height: 30,
     alignItems: 'center',
     justifyContent: 'center',
+    position: 'relative',
+  },
+
+  redCircle: {
+    position: 'absolute',
+    top: 5,
+    right: 5,
+    width: 15,
+    height: 15,
+    borderRadius: 10,
+    backgroundColor: '#FF2F61',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  greyCircle: {
+    position: 'absolute',
+    top: -10,
+    right: -10,
+    width: 25,
+    height: 25,
+    borderRadius: 20,
+    backgroundColor: '#F6F6FA',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  redCircleText: {
+    color: 'white',
+    fontSize: 10,
+    fontWeight: 'bold',
   },
 
   detailColor: {
@@ -282,7 +362,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 20,
     borderRadius: 10,
-    elevation: 5, 
+    elevation: 5,
   },
   noteModalTitle: {
     fontSize: 18,
@@ -297,7 +377,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   addNoteButton: {
-    backgroundColor: '#4CAF50', 
+    backgroundColor: '#4CAF50',
     padding: 10,
     borderRadius: 5,
   },
