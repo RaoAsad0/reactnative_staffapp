@@ -36,7 +36,7 @@ const HomeScreen = () => {
         if (movingDown && prevPosition >= 225) { // Reverse at the bottom
           setMovingDown(false);
           return prevPosition - 2;
-        } else if (!movingDown && prevPosition <= 0) { // Reverse at the top
+        } else if (!movingDown && prevPosition <= 0) {
           setMovingDown(true);
           return prevPosition + 2;
         } else {
@@ -48,60 +48,22 @@ const HomeScreen = () => {
     return () => clearInterval(intervalId);
   }, [movingDown]);
 
+  const getCameraMarginVertical = () => (Platform.OS === 'ios' ? '25%' : '40%');
+  const getCameraMarginHorizontal = () => (Platform.OS === 'ios' ? '13%' : '11%');
 
-
-  const getCameraMarginVertical = () => {
-    if (Platform.OS === 'ios') {
-      if (width === 375) {
-        // iPhone 6/7/8
-        return '20%';
-      } else if (width > 375 && width <= 414) {
-        // iPhone 7 Plus, 8 Plus
-        return '25%';
-      } else {
-        return '25%';
-      }
-    } else {
-      // Android default value
-      return '40%';
-    }
-  };
-
-  const getCameraMarginHorizontal = () => {
-    if (Platform.OS === 'ios') {
-      if (width === 375) {
-        // iPhone 6/7/8
-        return '10%';
-      } else if (width > 375 && width <= 414) {
-        // iPhone 7 Plus, 8 Plus
-        return '13%';
-      } else {
-        return '13%';
-      }
-    } else {
-      // Android default value
-      return '11%';
-    }
-  };
-
-  const cameraMarginHorizontal = getCameraMarginHorizontal();
-  const cameraMarginVertical = getCameraMarginVertical();
-
-  if (!permission) {
-    return <View />;
-  }
-
+  if (!permission) return <View />;
   if (!permission.granted) {
     return (
       <View style={styles.container}>
         <Header activeTab={activeTab} />
-        requestPermission()
+        <Text>Camera Permission is Required</Text>
+        <Button title="Grant Permission" onPress={requestPermission} />
       </View>
     );
   }
 
   function toggleCameraFacing() {
-    setFacing(current => (current === 'back' ? 'front' : 'back'));
+    setFacing((current) => (current === 'back' ? 'front' : 'back'));
   }
 
   const handleBarCodeScanned = ({ data }) => {
@@ -111,31 +73,12 @@ const HomeScreen = () => {
     setScannedData(data);
     setScanTime(getFormattedDate());
 
-    if (data === '123') {
-      setScanResult({
-        text: 'Scan Successful',
-        color: '#4BB543',
-        icon: <MaterialIcons name="check" size={24} color="white" backgroundColor="#4BB543" />,
-      });
-    } else if (data === '456') {
-      setScanResult({
-        text: 'Scan Already',
-        color: '#D8A236',
-        icon: <MaterialIcons name="close" size={24} color="white" backgroundColor="#D8A236" />,
-      });
-    } else if (data === '789') {
-      setScanResult({
-        text: 'Scan Unsuccessful',
-        color: '#ED4337',
-        icon: <MaterialIcons name="close" size={24} color="white" backgroundColor="#ED4337" />,
-      });
-    } else {
-      setScanResult({
-        text: 'Invalid QR code',
-        color: '#ED4337',
-        icon: <MaterialIcons name="close" size={24} color="white" backgroundColor="#ED4337" />,
-      });
-    }
+    let scanData = { text: 'Invalid QR code', color: '#ED4337', icon: 'close' };
+    if (data === '123') scanData = { text: 'Scan Successful', color: '#4BB543', icon: 'check' };
+    else if (data === '456') scanData = { text: 'Scan Already', color: '#D8A236', icon: 'close' };
+    else if (data === '789') scanData = { text: 'Scan Unsuccessful', color: '#ED4337', icon: 'close' };
+
+    setScanResult(scanData);
     setTimeout(() => {
       setScannedData(null);
       setScanning(false);
@@ -143,13 +86,13 @@ const HomeScreen = () => {
   };
 
   const handleAddNote = (newNote) => {
-    if (newNote.trim().length > 0) { // Only add non-empty notes
+    if (newNote.trim().length > 0) {
       setNotes((prevNotes) => ({
         ...prevNotes,
         [scannedData]: newNote,
       }));
     }
-    setNoteModalVisible(false); // Close the modal regardless
+    setNoteModalVisible(false);
   };
 
   const handleNoteButtonPress = () => {
@@ -174,31 +117,27 @@ const HomeScreen = () => {
   };
 
   const handleDetailButtonPress = () => {
-    navigation.navigate('TicketScanned', {
-      note: notes[scannedData] || '',
-    });
+    navigation.navigate('TicketScanned', { note: notes[scannedData] || '' });
   };
-
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
       <Header />
-      <View style={[styles.cameraWrapper, { marginHorizontal: cameraMarginHorizontal, marginVertical: cameraMarginVertical }]}>
+      <View style={[styles.cameraWrapper, { marginHorizontal: getCameraMarginHorizontal(), marginVertical: getCameraMarginVertical() }]}>
         <CameraView
           style={styles.camera}
           facing={facing}
           onBarcodeScanned={scanning ? undefined : handleBarCodeScanned}
         />
-        <CameraOverlay linePosition={linePosition}
-        //  scannedData={scannedData}
-        />
+        <CameraOverlay linePosition={linePosition} />
       </View>
+
       {scanResult && (
         <View style={styles.containerstatus}>
           <View style={styles.scanResultsContainer}>
             <View style={[styles.scaniconresult, { backgroundColor: scanResult.color }]}>
-              <MaterialIcons name={scanResult.icon.props.name} size={24} color="white" style={{ margin: 13 }} />
+              <MaterialIcons name={scanResult.icon} size={24} color="white" style={{ margin: 13 }} />
             </View>
             <View style={styles.scanResults}>
               <Text style={{ color: scanResult.color }}>{scanResult.text}</Text>
