@@ -173,11 +173,14 @@ const styles = StyleSheet.create({
 
   },
   buttonText: {
-    color: color.brown_766F6A
+    color: color.brown_766F6A,
+    fontWeight: '400',
+    fontSize: 14
   },
   activeButtonText: {
     color: color.brown_3C200A,
-    fontWeight: 'bold',
+    fontWeight: '500',
+    fontSize: 14
   },
 
 });

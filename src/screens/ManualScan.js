@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState ,useCallback} from 'react';
 import { View, Text, TextInput, StyleSheet, StatusBar, TouchableOpacity, FlatList } from 'react-native';
 import Header from '../../components/header';
 import { color } from '../color/color';
 import { Image as ExpoImage } from 'expo-image';
 import { attendeeslist } from '../constants/attendeeslist';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation ,useFocusEffect} from '@react-navigation/native';
 
 const ManualScan = () => {
   const navigation = useNavigation();
@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
   rightColumn: {
     flexDirection: 'column',
     alignItems: 'flex-start',
+    marginRight: 50
   },
   name: {
     marginBottom: 5,
@@ -155,6 +156,7 @@ const styles = StyleSheet.create({
   total: {
     fontSize: 14,
     color: '#000000',
+    top:4
   },
   flatListContent: {
     paddingBottom: 20,

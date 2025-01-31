@@ -58,8 +58,8 @@ const BoxOfficeTab = () => {
 
   const allTickets = {
     'Early Bird': [
-      { type: 'Early Bird Ticket 1', price: 40, discountPrice: 30, quantity: 2 },
-      { type: 'Early Bird Ticket 2', price: 50, discountPrice: 35, quantity: 1 },
+      { type: 'Standard Ticket', price: 40, discountPrice: 30, quantity: 2 },
+      { type: 'Standard Ticket', price: 50, discountPrice: 35, quantity: 1 },
     ],
     'VIP Ticket': [
       { type: 'VIP Ticket', price: 80, discountPrice: 70, quantity: 2 },
@@ -164,8 +164,8 @@ const BoxOfficeTab = () => {
         </View>
         <View style={styles.rightColumn}>
           <View style={styles.priceContainer}>
-            <Text style={styles.originalPrice}>USD{item.price}</Text>
-            <Text style={styles.discountPrice}>USD{item.discountPrice}</Text>
+            <Text style={styles.originalPrice}>USD {item.price}</Text>
+            <Text style={styles.discountPrice}>USD {item.discountPrice}</Text>
           </View>
           <QuantitySelector
             quantity={item.quantity}
@@ -245,7 +245,7 @@ const BoxOfficeTab = () => {
               contentFit="contain"
               style={styles.cameraImage}
             />
-            <Text  style={[styles.paymentOptionText,paymentOption === 'Cash' && { color: '##5A2F0E'}]}>Cash</Text>
+            <Text  style={[styles.paymentOptionText,paymentOption === 'Cash' && { color: '#5A2F0E'}]}>Cash</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.paymentOption,paymentOption === 'Debit/Credit Card' && { borderColor: '#AE6F28'},{ paddingHorizontal: paymentPaddingHorizontal }]} onPress={() => setPaymentOption('Debit/Credit Card')}>
             <ExpoImage
@@ -318,18 +318,18 @@ const styles = StyleSheet.create({
   },
   ticketCard: {
     borderWidth: 1,
-    backgroundColor: '#F7E4B6',
-    borderColor: '#F7E4B6',
+    backgroundColor: '#F7E4B680',
+    borderColor: '#F7E4B680',
     borderRadius: 15,
     padding: 15,
     marginBottom: 15,
     top: 10
   },
   ticketType: {
-    fontWeight: 'bold',
+    fontWeight: '700',
     marginBottom: 5,
     fontSize: 14,
-    color: "#2F251D"
+    color: color.black_2F251D
   },
   priceContainer: {
     flexDirection: 'row',
@@ -458,7 +458,7 @@ const styles = StyleSheet.create({
   },
   quantitySelectorContainer: {
     flexDirection: 'row',
-    backgroundColor: '#F7E4B6',
+    backgroundColor: 'transparent',
     borderRadius: 8,
     borderWidth: 0.4,
     borderColor: '#544B45',

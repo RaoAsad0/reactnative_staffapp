@@ -10,7 +10,7 @@ const CheckInAllPopup = ({ticketslist}) => {
             <Text style={styles.ticketId}>{item.id}</Text>
             <Text style={styles.ticketType}>{item.type}</Text>
             <View style={styles.priceContainer}>
-                <Text style={styles.priceCurrency}>USD</Text>
+                <Text style={styles.priceCurrency}>USD </Text>
                 <Text style={styles.ticketPrice}>{item.price}</Text>
             </View>
         </View>
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
     },
     ticketId: {
-        fontWeight: 'bold',
+        fontWeight: '500',
         marginTop: 10,
         fontSize: 14,
         color: color.black_2F251D
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginTop: 10,
         color: color.black_2F251D,
-        fontWeight: 'bold',
+        fontWeight: '500',
     },
     priceContainer: {
         flexDirection: 'row',
@@ -67,22 +67,23 @@ const styles = StyleSheet.create({
         color: color.black_544B45,
     },
     ticketPrice: {
-        color: color.brown_5A2F0E,
-        fontWeight: 'bold',
+        color: color.black_544B45,
     },
     ticketDate: {
-        fontSize: 16,
-        color: color.black_544B45,
-        fontWeight: 'bold',
-        marginTop: 10,
+        fontSize: 14,
+        color: color.black_2F251D,
+        fontWeight: '500',
+        marginTop: 14,
     },
     ticketheading: {
         fontSize: 14,
         color: color.black_544B45,
+        fontWeight: '400'
     },
     ticketDateheading: {
-        fontSize: 16,
-        marginTop: 20,
+        fontSize: 12,
+        marginTop: 15,
+        fontWeight: '400',
     },
     statusAndDateContainer: {
         flexDirection: 'column',

@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
         color: color.brown_3C200A,
         fontSize: 14,
         marginTop: 20,
+        fontWeight: '400'
     },
     ticketsList: {
         marginTop: 20,
@@ -101,6 +102,7 @@ const styles = StyleSheet.create({
         color: color.brown_3C200A,
         fontSize: 16,
         marginTop: 10,
+        fontWeight: '500'
     },
     successImageIcon: {
         width: 80,

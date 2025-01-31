@@ -31,7 +31,7 @@ const OtpLoginScreen = () => {
 
   const handleResendOtp = () => {
     console.log('Resending OTP');
-    setOtpResendTime(60);
+   // setOtpResendTime(60);
   };
 
   useEffect(() => {
@@ -88,13 +88,13 @@ const OtpLoginScreen = () => {
             <Text style={styles.appName}>Enter OTP</Text>
             <Text style={styles.labelText}>
               OTP sent to your email{' '}
-              {otpResendTime > 0 ? (
+              {/* {otpResendTime > 0 ? (
                 <Text style={{ color: color.gray }}>(Resend in {otpResendTime}s)</Text>
               ) : (
                 <TouchableOpacity onPress={handleResendOtp}>
                   <Text style={styles.resendText}></Text>
                 </TouchableOpacity>
-              )}
+              )} */}
             </Text>
 
             {/* OTP Inputs */}
@@ -122,7 +122,9 @@ const OtpLoginScreen = () => {
               <Text style={styles.buttonText}>Sign In</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.changeDetailsButton} onPress={handleResendOtp}>
+            <TouchableOpacity style={styles.changeDetailsButton}
+            //  onPress={handleResendOtp}
+             >
               <Text style={styles.changeDetailsText}>Resend OTP</Text>
             </TouchableOpacity>
 
@@ -175,8 +177,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   appName: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 20,
+    fontWeight: '600',
     marginBottom: 20,
     color: color.brown_3C200A,
   },
@@ -213,13 +215,13 @@ const styles = StyleSheet.create({
   buttonText: {
     color: color.btnTxt_FFF6DF,
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
   changeDetailsButton: {
     marginTop: 10,
     padding: 13,
     borderWidth: 1,
-    borderColor: color.borderBrown_CEBCA0,
+    borderColor: color.btnBrown_AE6F28,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -228,7 +230,8 @@ const styles = StyleSheet.create({
   },
   changeDetailsText: {
     color: color.black_2F251D,
-    fontWeight: 'bold',
+    fontWeight: '600',
+    fontSize: 16
   },
   resendText: {
     color: color.blue,

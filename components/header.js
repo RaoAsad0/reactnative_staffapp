@@ -1,8 +1,11 @@
 // Header.js
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, Platform, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, Platform, Dimensions,TouchableOpacity } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
 import { color } from '../src/color/color';
+import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import MyDrawer from '../src/screens/MyDrawer';
 
 const Header = () => {
   const { width } = Dimensions.get('window');
@@ -28,6 +31,9 @@ const Header = () => {
   return (
     <View style={styles.headerColumn}>
       <View style={styles.header}>
+      {/* <TouchableOpacity onPress={() => navigation.openDrawer()}>
+          <Ionicons name="menu" size={24} color="black" />
+        </TouchableOpacity> */}
         <ExpoImage
           source={require('../assets/images/drawer-icon.png')} style={styles.drawerIocn} />
         <Text style={styles.countryName}>OUTMOSPHERE </Text>

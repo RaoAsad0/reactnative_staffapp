@@ -1,18 +1,18 @@
 import { CameraView, useCameraPermissions } from 'expo-camera';
-import { useState, useEffect } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View, Platform, StatusBar, Dimensions } from 'react-native';
+import { useState, useEffect , useCallback } from 'react';
+import { Button, StyleSheet, Text, TouchableOpacity, View, Platform, StatusBar, Dimensions} from 'react-native';
 import CameraOverlay from '../../components/CameraOverlay';
 import Header from '../../components/header';
 import { color } from '../color/color';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { getFormattedDate } from '../constants/dateAndTime';
 import NoteModal from '../constants/noteModal';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation ,useFocusEffect} from '@react-navigation/native';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [facing, setFacing] = useState('back');
-  const [permission, requestPermission] = useCameraPermissions();
+  const [permission, requestPermission] = useCameraPermissions()
   const [scannedData, setScannedData] = useState(null);
   const [scanResult, setScanResult] = useState(null);
   const [scanning, setScanning] = useState(false);
@@ -25,6 +25,20 @@ const HomeScreen = () => {
   const [noteCount, setNoteCount] = useState(0);
   const [noteToEdit, setNoteToEdit] = useState(null);
   const { width, height } = Dimensions.get('window');
+
+
+  useFocusEffect(
+    useCallback(() => {
+      console.log('HomeScreen focused! Refreshing data...');
+      // Reset your states or trigger any API fetch
+      setScannedData(null);
+      setScanResult(null);
+      setScanning(false);
+      setScanTime(null);
+
+      return () => console.log('HomeScreen unfocused! Cleanup here.');
+    }, [])
+  );
 
   useEffect(() => {
     setNoteCount(Object.keys(notes).length);

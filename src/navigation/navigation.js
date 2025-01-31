@@ -8,7 +8,8 @@ import BoxOfficeTab from '../screens/BoxOfficeTab';
 import CheckInAllTickets from '../screens/CheckInAllTickets';
 import ManualCheckInAllTickets from '../screens/ManualcheckInAllTickets';
 import TicketScanned from '../screens/TicketScanned';
-
+import MyDrawer from '../screens/MyDrawer';
+import DashboardScreen from '../screens/DashboardScreen';
 const Stack = createNativeStackNavigator();
 
 function LoggedInScreen() {
@@ -18,14 +19,15 @@ function LoggedInScreen() {
 function Navigation() {
   return (
     <Stack.Navigator >
-      <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false,unmountOnBlur: true }} />
+      <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false,unmountOnBlur: true }}  />
       <Stack.Screen name="LoggedIn" component={LoggedInScreen} options={{ headerShown: false,unmountOnBlur: true }} /> 
       <Stack.Screen name="OtpLogin" component={OtpLoginScreen} options={{ headerShown: false,unmountOnBlur: true }} /> 
       <Stack.Screen name="TicketsTab" component={TicketsTab} options={{ headerShown: false,unmountOnBlur: true }} /> 
-      <Stack.Screen name="BoxOfficeTab" component={BoxOfficeTab} options={{ headerShown: false,unmountOnBlur: true }} /> 
+      <Stack.Screen name="BoxOfficeTab" component={BoxOfficeTab} options={{ headerShown: false,unmountOnBlur: false }} /> 
       <Stack.Screen name="CheckInAllTickets" component={CheckInAllTickets} options={{ headerShown: false,unmountOnBlur: true }} /> 
       <Stack.Screen name="ManualCheckInAllTickets" component={ManualCheckInAllTickets} options={{ headerShown: false,unmountOnBlur: true }} /> 
       <Stack.Screen name="TicketScanned" component={TicketScanned} options={{ headerShown: false,unmountOnBlur: true }} /> 
+      <Stack.Screen name="DashboardScreen" component={DashboardScreen} options={{ headerShown: false,unmountOnBlur: true }} />
     </Stack.Navigator>
   );
 }

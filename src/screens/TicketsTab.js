@@ -253,6 +253,8 @@ const styles = StyleSheet.create({
     searchBar: {
         flex: 1,
         paddingVertical: 10,
+        fontWeight: '500',
+        fontSize: 13,
     },
     searchIcon: {
         width: 20,
