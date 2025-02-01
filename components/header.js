@@ -58,6 +58,7 @@ const Header = () => {
 const styles = StyleSheet.create({
   headerColumn: {
     flexDirection: 'column',
+    backgroundColor: color.white_FFFFFF
   },
   header: {
     flexDirection: "row",

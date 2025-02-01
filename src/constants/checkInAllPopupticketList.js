@@ -1,35 +1,35 @@
-import { StyleSheet, Text, View,FlatList, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { color } from '../color/color';
 
-const CheckInAllPopup = ({ticketslist}) => {
+const CheckInAllPopup = ({ ticketslist }) => {
 
     const renderItem = ({ item }) => (
         <View style={styles.ticketContainer}>
-        <View>
-            <Text style={styles.ticketheading}>Ticket ID</Text>
-            <Text style={styles.ticketId}>{item.id}</Text>
-            <Text style={styles.ticketType}>{item.type}</Text>
-            <View style={styles.priceContainer}>
-                <Text style={styles.priceCurrency}>USD </Text>
-                <Text style={styles.ticketPrice}>{item.price}</Text>
+            <View>
+                <Text style={styles.ticketheading}>Ticket ID</Text>
+                <Text style={styles.ticketId}>{item.id}</Text>
+                <Text style={styles.ticketType}>{item.type}</Text>
+                <View style={styles.priceContainer}>
+                    <Text style={styles.priceCurrency}>USD </Text>
+                    <Text style={styles.ticketPrice}>{item.price}</Text>
+                </View>
+            </View>
+            <View style={styles.statusAndDateContainer}>
+                <TouchableOpacity style={styles.statusButton}>
+                    <Text style={styles.statusButtonText}>{item.status}</Text>
+                </TouchableOpacity>
+                <Text style={styles.ticketDateheading}>Date</Text>
+                <Text style={styles.ticketDate}>{item.date}</Text>
             </View>
         </View>
-        <View style={styles.statusAndDateContainer}>
-            <TouchableOpacity style={styles.statusButton}>
-                <Text style={styles.statusButtonText}>{item.status}</Text>
-            </TouchableOpacity>
-            <Text style={styles.ticketDateheading}>Date</Text>
-            <Text style={styles.ticketDate}>{item.date}</Text>
-        </View>
-    </View>
     );
 
     return (
         <FlatList
-                data={ticketslist}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-            />
+            data={ticketslist}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+        />
     );
 };
 
@@ -38,13 +38,19 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: color.white_FFFFFF,
         borderRadius: 10,
         marginBottom: 10,
         backgroundColor: color.white_FFFFFF,
         paddingHorizontal: 16,
         paddingVertical: 10,
+        margin: 2,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 6,
+        elevation: 5,
     },
     ticketId: {
         fontWeight: '500',
@@ -84,6 +90,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginTop: 15,
         fontWeight: '400',
+        top: 1
     },
     statusAndDateContainer: {
         flexDirection: 'column',

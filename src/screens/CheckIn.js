@@ -26,6 +26,10 @@ const HomeScreen = () => {
   const [noteToEdit, setNoteToEdit] = useState(null);
   const { width, height } = Dimensions.get('window');
 
+  useEffect(() => {
+    requestPermission();
+  }, []);
+
 
   useFocusEffect(
     useCallback(() => {
@@ -70,8 +74,6 @@ const HomeScreen = () => {
     return (
       <View style={styles.container}>
         <Header activeTab={activeTab} />
-        <Text>Camera Permission is Required</Text>
-        <Button title="Grant Permission" onPress={requestPermission} />
       </View>
     );
   }
@@ -89,7 +91,7 @@ const HomeScreen = () => {
 
     let scanData = { text: 'Invalid QR code', color: '#ED4337', icon: 'close' };
     if (data === '123') scanData = { text: 'Scan Successful', color: '#4BB543', icon: 'check' };
-    else if (data === '456') scanData = { text: 'Scan Already', color: '#D8A236', icon: 'close' };
+    else if (data === '456') scanData = { text: 'Scanned Already', color: '#D8A236', icon: 'close' };
     else if (data === '789') scanData = { text: 'Scan Unsuccessful', color: '#ED4337', icon: 'close' };
 
     setScanResult(scanData);
@@ -185,7 +187,7 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: color.white_FFFFFF,
   },
   cameraWrapper: {
     justifyContent: 'center',

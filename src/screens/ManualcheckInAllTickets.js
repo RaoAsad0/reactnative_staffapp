@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 20,
-        backgroundColor: color.bgLight,
+        backgroundColor: color.white_FFFFFF,
     },
     popUp: {
         alignItems: 'center',
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 5,
         elevation: 5,
-        marginTop: 40,
+        marginTop: 20,
     },
     button: {
         backgroundColor: color.btnBrown_AE6F28,

@@ -60,7 +60,7 @@ const TicketsTab = ({ tickets }) => {
                 <Text style={styles.ticketId}>{item.id}</Text>
                 <Text style={styles.ticketType}>{item.type}</Text>
                 <View style={styles.priceContainer}>
-                    <Text style={styles.priceCurrency}>USD</Text>
+                    <Text style={styles.priceCurrency}>USD </Text>
                     <Text style={styles.ticketPrice}>{item.price}</Text>
                 </View>
                 <Text style={styles.ticketDateheading}>Date:</Text>
@@ -168,7 +168,13 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         backgroundColor: color.white_FFFFFF,
         paddingHorizontal: 16,
-        paddingVertical: 10
+        paddingVertical: 10,
+        margin: 2,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 6,
+        elevation: 5,
 
     },
     ticketId: {
@@ -278,10 +284,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: 'white',
+        borderColor: color.white_FFFFFF,
         borderRadius: 7,
-        backgroundColor: 'white',
+        backgroundColor: color.white_FFFFFF,
         marginRight: 10,
+        margin: 2,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 6,
+        elevation: 5,
     },
     tabButtonText: {
         color: color.brown_766F6A

@@ -145,6 +145,7 @@ const SettingsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: color.white_FFFFFF
   },
   tabContainer: {
     flexDirection: 'row',
@@ -166,10 +167,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: color.white_FFFFFF,
     borderRadius: 7,
-    backgroundColor: 'white',
+    backgroundColor: color.white_FFFFFF,
     marginRight: 10,
+    margin: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
 
   },
   buttonText: {

@@ -51,13 +51,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 20,
-        backgroundColor: color.bgLight, // Optional: Add a background color for clarity
+        backgroundColor: color.white_FFFFFF,
     },
     popUp: {
         alignItems: 'center',
         justifyContent: 'center',
         padding: 20,
-        backgroundColor: 'white',
+        backgroundColor: color.white_FFFFFF,
         borderRadius: 15,
         width: '100%',
         shadowColor: '#000',
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 5,
         elevation: 5,
-        marginTop: 40,
+        marginTop: 20,
     },
     button: {
         backgroundColor: color.btnBrown_AE6F28,

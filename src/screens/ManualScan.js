@@ -86,6 +86,7 @@ const ManualScan = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: color.white_FFFFFF
   },
   inputLabel: {
     paddingHorizontal: 46,
@@ -123,6 +124,12 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 15,
     marginHorizontal: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,  
+    margin: 2
   },
   ticketRow: {
     flexDirection: 'row',
