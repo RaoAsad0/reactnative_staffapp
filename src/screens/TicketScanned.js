@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 20,
-        backgroundColor: color.bgLight,
+        backgroundColor: color.white_FFFFFF,
     },
     popUp: {
         alignItems: 'center',
@@ -108,6 +108,12 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         marginTop: 15,
         marginBottom: 10,
+        width: '100%',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 5,
+        elevation: 5,
     },
     tickeScanTime: {
         fontSize: 14,
@@ -191,6 +197,12 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         marginTop: 15,
         marginBottom: 10,
+        width: '100%',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 5,
+        elevation: 5,
     },
     LabelNote:{
         fontSize: 14,

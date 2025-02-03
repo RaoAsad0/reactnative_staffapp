@@ -163,7 +163,7 @@ const HomeScreen = () => {
               <TouchableOpacity style={styles.detailButton} onPress={handleDetailButtonPress}>
                 <Text style={styles.detailColor}>Details</Text>
               </TouchableOpacity>
-              {(scanResult.text === 'Scan Unsuccessful' || scanResult.text === 'Invalid QR code' || scanResult.text === 'Scan Already') && (
+              {(scanResult.text === 'Scan Unsuccessful' || scanResult.text === 'Invalid QR code' || scanResult.text === 'Scanned Already') && (
                 <TouchableOpacity style={styles.noteButton} onPress={handleNoteButtonPress}>
                   <Text style={styles.noteColor}>Note</Text>
                   {noteCount > 0 && (

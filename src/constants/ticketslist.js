@@ -5,6 +5,7 @@ export const ticketslist = [
         price: 30,
         date: 'Sat, 02 2025',
         status: 'Check-In',
+        statusScanned: 'Scanned', 
 
     },
     {
@@ -21,6 +22,7 @@ export const ticketslist = [
         price: 30,
         date: 'Sat, 02 2025',
         status: 'Check-In',
+        statusScanned: 'Scanned', 
 
     },
     {
@@ -29,6 +31,7 @@ export const ticketslist = [
         price: 30,
         date: 'Sun, 02 2025',
         status: 'Check-In',
+        statusScanned: 'Scanned', 
 
     }, {
         id: '#12389651346',
@@ -36,6 +39,7 @@ export const ticketslist = [
         price: 30,
         date: 'Sat, 02 2025',
         status: 'Check-In',
+        statusScanned: 'Scanned', 
 
     },
     {
@@ -44,6 +48,7 @@ export const ticketslist = [
         price: 30,
         date: 'Sat, 02 2025',
         status: 'Check-In',
+        statusScanned: 'Scanned', 
 
     }, {
         id: '#12389651348',
@@ -51,6 +56,7 @@ export const ticketslist = [
         price: 30,
         date: 'Sat, 02 2025',
         status: 'Check-In',
+        statusScanned: 'Scanned', 
     },
     {
         id: '#12389651349',
@@ -58,6 +64,7 @@ export const ticketslist = [
         price: 30,
         date: 'Sat, 02 2025',
         status: 'Check-In',
+        statusScanned: 'Scanned', 
 
     }, {
         id: '#12389651350',
@@ -65,6 +72,7 @@ export const ticketslist = [
         price: 30,
         date: 'Sat, 02 2025',
         status: 'Check-In',
+        statusScanned: 'Scanned', 
 
     },
     {
@@ -73,6 +81,7 @@ export const ticketslist = [
         price: 30,
         date: 'Sat, 02 2025',
         status: 'Check-In',
+        statusScanned: 'Scanned', 
 
     },
 ];

@@ -1,10 +1,34 @@
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { color } from '../color/color';
 
 const CheckInAllPopup = ({ ticketslist }) => {
+    const navigation = useNavigation();
+    const [tickets, setTickets] = useState(ticketslist);
+
+    const handleStatusChange = (id) => {
+        setTickets(prevTickets =>
+            prevTickets.map(ticket =>
+                ticket.id === id
+                    ? { ...ticket, status: 'Scanned', note: ticket.note || '' } // Preserve or initialize note
+                    : ticket
+            )
+        );
+    };
+
+    const handleItemPress = (item) => {
+        if (item.status === 'Scanned') {
+            const note = item.note || ''; // Ensure there's a default empty note if none exists
+            navigation.navigate('TicketScanned', { note });
+        }
+    };
 
     const renderItem = ({ item }) => (
-        <View style={styles.ticketContainer}>
+        <TouchableOpacity 
+            style={styles.ticketContainer} 
+            onPress={() => handleItemPress(item)}
+        >
             <View>
                 <Text style={styles.ticketheading}>Ticket ID</Text>
                 <Text style={styles.ticketId}>{item.id}</Text>
@@ -15,18 +39,31 @@ const CheckInAllPopup = ({ ticketslist }) => {
                 </View>
             </View>
             <View style={styles.statusAndDateContainer}>
-                <TouchableOpacity style={styles.statusButton}>
-                    <Text style={styles.statusButtonText}>{item.status}</Text>
+                <TouchableOpacity 
+                    style={[
+                        styles.statusButton, 
+                        item.status === 'Scanned' && styles.scannedButton
+                    ]} 
+                    onPress={() => handleStatusChange(item.id)}
+                >
+                    <Text 
+                        style={[
+                            styles.statusButtonText, 
+                            item.status === 'Scanned' && styles.scannedText
+                        ]}
+                    >
+                        {item.status === 'Scanned' ? 'Scanned' : 'Check-in'}
+                    </Text>
                 </TouchableOpacity>
                 <Text style={styles.ticketDateheading}>Date</Text>
                 <Text style={styles.ticketDate}>{item.date}</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 
     return (
         <FlatList
-            data={ticketslist}
+            data={tickets}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
         />
@@ -87,10 +124,10 @@ const styles = StyleSheet.create({
         fontWeight: '400'
     },
     ticketDateheading: {
-        fontSize: 12,
+        fontSize: 14,
         marginTop: 15,
-        fontWeight: '400',
-        top: 1
+        fontWeight: '300',
+       
     },
     statusAndDateContainer: {
         flexDirection: 'column',
@@ -103,11 +140,19 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: 110,
-        backgroundColor: '#AE6F28',
+        backgroundColor: color.btnBrown_AE6F28,
         marginBottom: 10,
     },
     statusButtonText: {
-        color: '#FFF6DF',
+        color: color.btnTxt_FFF6DF,
+    },
+    scannedButton: {
+        backgroundColor: color.brown_FFE8BB,
+    },
+    scannedText: {
+        color: color.brown_D58E00,
+        fontWeight: '500',
+        
     },
 });
 
