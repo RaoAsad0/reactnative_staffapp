@@ -3,8 +3,10 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput, Platform
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { color } from '../color/color';
 import { Image as ExpoImage } from 'expo-image';
+import { useNavigation } from '@react-navigation/native';
 
 const TicketsTab = ({ tickets }) => {
+    const navigation = useNavigation()
     const [searchText, setSearchText] = useState('');
     const [selectedTab, setSelectedTab] = useState('All');
     const { width } = Dimensions.get('window');
@@ -53,8 +55,15 @@ const TicketsTab = ({ tickets }) => {
         setSelectedTab(tab);
     };
 
+    const handleTicketPress = (ticket) => {
+        navigation.navigate('TicketScanned', {
+            status: ticket.status,
+            note: ticket.note || 'No note added'
+        });
+    };
+
     const renderItem = ({ item }) => (
-        <View style={styles.ticketContainer}>
+        <TouchableOpacity onPress={() => handleTicketPress(item)} style={styles.ticketContainer}>
             <View>
                 <Text style={styles.ticketheading}>Ticket ID</Text>
                 <Text style={styles.ticketId}>{item.id}</Text>
@@ -95,7 +104,7 @@ const TicketsTab = ({ tickets }) => {
                     <ExpoImage source={item.imageUrl} style={styles.ticketImage} contentFit='cover' />
                 )}
             </View>
-        </View>
+        </TouchableOpacity>
     );
 
     const filteredTickets = filterTickets();

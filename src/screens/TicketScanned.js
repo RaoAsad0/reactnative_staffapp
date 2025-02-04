@@ -5,7 +5,7 @@ import { Image as ExpoImage } from 'expo-image';
 
 
 const TicketScanned = ({ route }) => {
-    const { note } = route.params;
+    const { status, note } = route.params;
   
     return (
         <>
@@ -15,7 +15,9 @@ const TicketScanned = ({ route }) => {
             <View style={styles.container}>
 
                 <View style={styles.popUp}>
-                    <Text style={styles.labeltickets}>Ticket Scanned</Text>
+                <Text style={styles.labeltickets}>
+                        {status === 'Scanned' ? 'Ticket Scanned' : 'Ticket Unscanned'}
+                    </Text>
                     <ExpoImage
                         source={require('../../assets/images/success-tick-icon.png')}
                         contentFit="contain"
