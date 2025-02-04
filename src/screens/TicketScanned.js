@@ -32,7 +32,7 @@ const TicketScanned = ({ route }) => {
                     <View>
                         <Text style={styles.ticketType}>Standard Ticket</Text>
                         <View style={styles.priceContainer}>
-                            <Text style={styles.priceCurrency}>USD</Text>
+                            <Text style={styles.priceCurrency}>USD </Text>
                             <Text style={styles.ticketPrice}>456</Text>
                         </View>
                         <Text style={styles.tickeScanTime}>Last Scanned On</Text>
