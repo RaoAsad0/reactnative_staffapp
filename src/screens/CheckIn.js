@@ -8,6 +8,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { getFormattedDate } from '../constants/dateAndTime';
 import NoteModal from '../constants/noteModal';
 import { useNavigation ,useFocusEffect} from '@react-navigation/native';
+const { width, height } = Dimensions.get('window');
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -24,7 +25,6 @@ const HomeScreen = () => {
   const [notes, setNotes] = useState([]);
   const [noteCount, setNoteCount] = useState(0);
   const [noteToEdit, setNoteToEdit] = useState(null);
-  const { width, height } = Dimensions.get('window');
 
   useEffect(() => {
     requestPermission();
@@ -65,9 +65,6 @@ const HomeScreen = () => {
 
     return () => clearInterval(intervalId);
   }, [movingDown]);
-
-  const getCameraMarginVertical = () => (Platform.OS === 'ios' ? '25%' : '40%');
-  const getCameraMarginHorizontal = () => (Platform.OS === 'ios' ? '13%' : '11%');
 
   if (!permission) return <View />;
   if (!permission.granted) {
@@ -140,13 +137,15 @@ const HomeScreen = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
       <Header />
-      <View style={[styles.cameraWrapper, { marginHorizontal: getCameraMarginHorizontal(), marginVertical: getCameraMarginVertical() }]}>
+      <View style={styles.cameraContainer}>
+      <View style={[styles.cameraWrapper]}>
         <CameraView
           style={styles.camera}
           facing={facing}
           onBarcodeScanned={scanning ? undefined : handleBarCodeScanned}
         />
         <CameraOverlay linePosition={linePosition} />
+      </View>
       </View>
 
       {scanResult && (
@@ -189,14 +188,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: color.white_FFFFFF,
   },
+  cameraContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   cameraWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 303,
-    height: 301,
+    width: width * 0.8,
+    height: height * 0.4,
     borderRadius: 10,
     overflow: 'hidden',
     backgroundColor: 'black',
+    marginHorizontal: width * 0.1, 
+    marginVertical: height * 0.1,
   },
   camera: {
     width: '100%',

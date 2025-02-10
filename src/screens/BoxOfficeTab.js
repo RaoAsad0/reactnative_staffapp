@@ -16,24 +16,24 @@ const BoxOfficeTab = () => {
   const [paymentOption, setPaymentOption] = useState('');
   const { width } = Dimensions.get('window');
 
-  const getPaddingHorizontalToPayment = () => {
-    if (Platform.OS === 'ios') {
-      if (width === 375) {
-        // iPhone 6/7/8
-        return 35;
-      } else if (width > 375 && width <= 414) {
-        // iPhone 7 Plus, 8 Plus
-        return 45;
-      } else {
-        return 45;
-      }
-    } else {
-      // Android default value
-      return 43;
-    }
-  };
+  // const getPaddingHorizontalToPayment = () => {
+  //   if (Platform.OS === 'ios') {
+  //     if (width === 375) {
+  //       // iPhone 6/7/8
+  //       return 35;
+  //     } else if (width > 375 && width <= 414) {
+  //       // iPhone 7 Plus, 8 Plus
+  //       return 45;
+  //     } else {
+  //       return 45;
+  //     }
+  //   } else {
+  //     // Android default value
+  //     return 43;
+  //   }
+  // };
 
-  const paymentPaddingHorizontal = getPaddingHorizontalToPayment();
+  //const paymentPaddingHorizontal = getPaddingHorizontalToPayment();
 
   const [selectedTickets, setSelectedTickets] = useState([
     { type: 'Standard Ticket', price: 40, discountPrice: 30, quantity: 2 },
@@ -50,9 +50,9 @@ const BoxOfficeTab = () => {
       alert('Please select a payment option.');
       return;
     }
-    
+
     const totalQuantity = selectedTickets.reduce((sum, ticket) => sum + ticket.quantity, 0);
-    navigation.navigate('CheckInAllTickets', { totalTickets: totalQuantity,email,paymentOption });
+    navigation.navigate('CheckInAllTickets', { totalTickets: totalQuantity, email, paymentOption });
   };
 
 
@@ -115,7 +115,7 @@ const BoxOfficeTab = () => {
       )
       .required('Required'),
   });
-  
+
 
   const QuantitySelector = ({ quantity, onIncrease, onDecrease }) => {
     return (
@@ -235,19 +235,36 @@ const BoxOfficeTab = () => {
           <Text>Pay With</Text>
         </View>
         <View style={styles.paymentOptions}>
-          <TouchableOpacity style={[styles.paymentOption,paymentOption === 'Cash' && { borderColor: '#AE6F28'}, { paddingHorizontal: paymentPaddingHorizontal }]} onPress={() => setPaymentOption('Cash')}>
+          {/* Cash Button */}
+          <TouchableOpacity
+            style={[styles.paymentOption,
+            paymentOption === 'Cash' && { borderColor: '#AE6F28' },
+            { alignSelf: 'flex-start' } // Cash takes only needed width
+            ]}
+            onPress={() => setPaymentOption('Cash')}
+          >
             <ExpoImage
-             source={
-              paymentOption === 'Cash'
-                ? require('../../assets/images/camera-active-icon.png')
-                : require('../../assets/images/camera-icon.png')
-            }
+              source={
+                paymentOption === 'Cash'
+                  ? require('../../assets/images/camera-active-icon.png')
+                  : require('../../assets/images/camera-icon.png')
+              }
               contentFit="contain"
               style={styles.cameraImage}
             />
-            <Text  style={[styles.paymentOptionText,paymentOption === 'Cash' && { color: '#5A2F0E'}]}>Cash</Text>
+            <Text style={[styles.paymentOptionText, paymentOption === 'Cash' && { color: '#5A2F0E' }]}>
+              Cash
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.paymentOption,paymentOption === 'Debit/Credit Card' && { borderColor: '#AE6F28'},{ paddingHorizontal: paymentPaddingHorizontal }]} onPress={() => setPaymentOption('Debit/Credit Card')}>
+
+          {/* Debit/Credit Card Button */}
+          <TouchableOpacity
+            style={[styles.paymentOption,
+            paymentOption === 'Debit/Credit Card' && { borderColor: '#AE6F28' },
+            { flex: 1 } // Takes remaining space
+            ]}
+            onPress={() => setPaymentOption('Debit/Credit Card')}
+          >
             <ExpoImage
               source={
                 paymentOption === 'Debit/Credit Card'
@@ -257,10 +274,12 @@ const BoxOfficeTab = () => {
               contentFit="contain"
               style={styles.cardImage}
             />
-            <Text style={[styles.paymentOptionText,paymentOption === 'Debit/Credit Card' && { color: '#5A2F0E'}]}>Debit/Credit Card</Text>
+            <Text style={[styles.paymentOptionText, paymentOption === 'Debit/Credit Card' && { color: '#5A2F0E' }]}>
+              Debit/Credit Card
+            </Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={[styles.paymentOptioncard,paymentOption === 'Card/Mobile Money' && { borderColor: '#AE6F28'}]} onPress={() => setPaymentOption('Card/Mobile Money')}>
+        <TouchableOpacity style={[styles.paymentOptioncard, paymentOption === 'Card/Mobile Money' && { borderColor: '#AE6F28' }]} onPress={() => setPaymentOption('Card/Mobile Money')}>
           <ExpoImage
             source={
               paymentOption === 'Card/Mobile Money'
@@ -270,7 +289,7 @@ const BoxOfficeTab = () => {
             contentFit="contain"
             style={styles.mobileCardImage}
           />
-          <Text style={[styles.paymentOptionText,paymentOption === 'Card/Mobile Money' && { color: '#5A2F0E'}]}>Card/Mobile Money</Text>
+          <Text style={[styles.paymentOptionText, paymentOption === 'Card/Mobile Money' && { color: '#5A2F0E' }]}>Card/Mobile Money</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
@@ -391,6 +410,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 20,
+    gap: 10
   },
   paymentOptioncard: {
     flexDirection: 'row',
@@ -410,6 +430,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#CEBCA0',
     borderRadius: 10,
+    paddingHorizontal: 39,
     gap: 5
   },
   paymentOptionText: {

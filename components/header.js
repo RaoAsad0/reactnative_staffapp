@@ -56,25 +56,25 @@ const styles = StyleSheet.create({
   },
   countryName: {
     color: color.brown_3C200A,
-    fontSize: 14,
-    fontWeight: 'bold',
-    lineHeight: 22,
+    fontSize: 12,
+    fontWeight: '500',
+    
   },
   cityName: {
     color: color.brown_3C200A,
-    fontSize: 14,
-    lineHeight: 22,
+    fontSize: 12,
+    fontWeight: '400',
   },
   date: {
     color: color.brown_3C200A,
-    fontSize: 14,
-    lineHeight: 22,
+    fontSize: 12,
+    fontWeight: '400',
   },
   time: {
     color: color.brown_3C200A,
     fontSize: 14,
-    height: 22,
-    lineHeight: 22,
+    fontSize: 12,
+    fontWeight: '400',
   },
   userId: {
     color: color.brown_3C200A,
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
   drawerIcon: {
     width: 20,
-    height: 22,
+    height: 20,
   },
   userIcon: {
     width: 28,
