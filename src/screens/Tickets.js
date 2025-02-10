@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity, Text,StatusBar } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, Text,StatusBar ,SafeAreaView} from 'react-native';
 import Header from '../../components/header';
 import TicketsTab from './TicketsTab';
 import BoxOfficeTab from './BoxOfficeTab';
@@ -98,7 +98,7 @@ const SettingsScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
        <StatusBar barStyle="dark-content" backgroundColor="white" />
       <Header />
 
@@ -138,7 +138,7 @@ const SettingsScreen = () => {
       {activeView === 'BoxOfficeTab' && <BoxOfficeTab />}
 
 
-    </View>
+    </SafeAreaView>
   );
 };
 

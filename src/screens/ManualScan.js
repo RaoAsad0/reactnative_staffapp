@@ -1,5 +1,5 @@
 import React, { useState ,useCallback} from 'react';
-import { View, Text, TextInput, StyleSheet, StatusBar, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, TextInput, StyleSheet, StatusBar, TouchableOpacity, FlatList,SafeAreaView } from 'react-native';
 import Header from '../../components/header';
 import { color } from '../color/color';
 import { Image as ExpoImage } from 'expo-image';
@@ -44,7 +44,7 @@ const ManualScan = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
       <Header />
       <Text style={styles.inputLabel}>
@@ -79,7 +79,7 @@ const ManualScan = () => {
           <Text style={styles.emptyText}>No tickets found</Text>
         }
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

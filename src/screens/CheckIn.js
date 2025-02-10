@@ -1,6 +1,6 @@
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useState, useEffect , useCallback } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View, Platform, StatusBar, Dimensions} from 'react-native';
+import { Button, StyleSheet, Text, TouchableOpacity, View, Platform, StatusBar, Dimensions,SafeAreaView} from 'react-native';
 import CameraOverlay from '../../components/CameraOverlay';
 import Header from '../../components/header';
 import { color } from '../color/color';
@@ -137,7 +137,7 @@ const HomeScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
       <Header />
       <View style={[styles.cameraWrapper, { marginHorizontal: getCameraMarginHorizontal(), marginVertical: getCameraMarginVertical() }]}>
@@ -180,7 +180,7 @@ const HomeScreen = () => {
         </View>
       )}
       {noteModalVisible && <NoteModal visible={noteModalVisible} onAddNote={handleAddNote} onCancel={() => setNoteModalVisible(false)} initialNote={noteToEdit} />}
-    </View>
+    </SafeAreaView>
   );
 };
 
