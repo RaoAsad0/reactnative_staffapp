@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput, Platform, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { color } from '../color/color';
 import { Image as ExpoImage } from 'expo-image';
@@ -9,26 +9,6 @@ const TicketsTab = ({ tickets }) => {
     const navigation = useNavigation()
     const [searchText, setSearchText] = useState('');
     const [selectedTab, setSelectedTab] = useState('All');
-    const { width } = Dimensions.get('window');
-
-    const getStatusBtnLeft = () => {
-        if (Platform.OS === 'ios') {
-            if (width === 375) {
-                // iPhone 6/7/8
-                return 225;
-            } else if (width > 375 && width <= 414) {
-                // iPhone 7 Plus, 8 Plus
-                return 260;
-            } else {
-                return 260;
-            }
-        } else {
-            // Android default value
-            return 240;
-        }
-    };
-
-    const statusBtnLeft = getStatusBtnLeft();
 
     const filterTickets = () => {
         let filteredTickets = tickets;
@@ -75,12 +55,7 @@ const TicketsTab = ({ tickets }) => {
                 <Text style={styles.ticketDateheading}>Date:</Text>
                 <Text style={styles.ticketDate}>{item.date}</Text>
             </View>
-            <View
-                style={[
-                    styles.statusBtn,
-                    { left: statusBtnLeft }
-                ]}
-            >
+            <View style={ styles.statusBtn} >
                 <TouchableOpacity
                     style={[
                         styles.statusButton,
@@ -247,6 +222,7 @@ const styles = StyleSheet.create({
     },
     statusBtn: {
         position: 'absolute',
+        right: 18,
         top: 15,
 
     },

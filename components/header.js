@@ -1,111 +1,78 @@
 import React from 'react';
-import { View, StyleSheet, Text, Platform, Dimensions, StatusBar } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
-import { color } from '../src/color/color';
+import { color } from '../../color/color';
 
-const { width } = Dimensions.get('window');
+const OverallStatistics = () => {
+    return (
+        <View style={styles.container}>
+            <View style={styles.wrapper}>
+                {/* Heading */}
+                <Text style={styles.heading}>Overall Statistics</Text>
 
-const Header = () => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.headerColumn}>
-        <View style={styles.header}>
-          <ExpoImage source={require('../assets/images/drawer-icon.png')} style={styles.drawerIcon} />
-          <Text style={styles.countryName}>OUTMOSPHERE</Text>
-          <Text style={styles.cityName}>Accra</Text>
-          <Text style={styles.date}>28-12-2024</Text>
-          <Text style={styles.date}>at</Text>
-          <Text style={styles.time}>7:00 PM</Text>
+                {/* First Row */}
+                <View style={styles.row}>
+                    <View style={styles.statContainer}>
+                        <View style={styles.statRow}>
+                            <ExpoImage source={require('../../../assets/images/drawer-icon.png')} style={styles.icon} />
+                            <Text style={styles.statTitle}>Total Tickets</Text>
+                        </View>
+                        <Text style={styles.statValue}>545</Text>
+                    </View>
+
+                    <View style={styles.statContainer}>
+                        <View style={styles.statRow}>
+                            <ExpoImage source={require('../../../assets/images/drawer-icon.png')} style={styles.icon} />
+                            <Text style={styles.statTitle}>Total Scanned</Text>
+                        </View>
+                        <Text style={styles.statValue}>345</Text>
+                    </View>
+                </View>
+
+                {/* Second Row */}
+                <View style={styles.row}>
+                    <View style={styles.statContainer}>
+                        <View style={styles.statRow}>
+                            <ExpoImage source={require('../../../assets/images/drawer-icon.png')} style={styles.icon} />
+                            <Text style={styles.statTitle}>Total Unscanned</Text>
+                        </View>
+                        <Text style={styles.statValue}>200</Text>
+                    </View>
+
+                    <View style={styles.statContainer}>
+                        <View style={styles.statRow}>
+                            <ExpoImage source={require('../../../assets/images/drawer-icon.png')} style={styles.icon} />
+                            <Text style={styles.statTitle}>Available Tickets</Text>
+                        </View>
+                        <Text style={styles.statValue}>80</Text>
+                    </View>
+                </View>
+            </View>
         </View>
-        <View style={styles.profileId}>
-          <ExpoImage source={require('../assets/images/user.png')} style={styles.userIcon} />
-          <Text style={styles.userId}>ID: 87621237467</Text>
-          <Text style={[styles.scan, { marginLeft: width * 0.25 }]}>Scans</Text>
-          <View style={styles.count}>
-            <Text style={styles.countColor}>48</Text>
-          </View>
-        </View>
-      </View>
-    </View>
-  );
+    );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: color.white_FFFFFF,
-  },
-  headerColumn: {
-    flexDirection: 'column',
-    backgroundColor: color.white_FFFFFF,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 10,
-    width: '100%',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 20, // Dynamic padding for Android
-  },
-  profileId: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    padding: 10,
-    width: '100%',
-    backgroundColor: color.brown_F7E4B6,
-  },
-  countryName: {
-    color: color.brown_3C200A,
-    fontSize: 12,
-    fontWeight: '500',
-    
-  },
-  cityName: {
-    color: color.brown_3C200A,
-    fontSize: 12,
-    fontWeight: '400',
-  },
-  date: {
-    color: color.brown_3C200A,
-    fontSize: 12,
-    fontWeight: '400',
-  },
-  time: {
-    color: color.brown_3C200A,
-    fontSize: 14,
-    fontSize: 12,
-    fontWeight: '400',
-  },
-  userId: {
-    color: color.brown_3C200A,
-    fontSize: 14,
-    height: 22,
-    marginLeft: 10,
-    lineHeight: 22,
-  },
-  drawerIcon: {
-    width: 20,
-    height: 20,
-  },
-  userIcon: {
-    width: 28,
-    height: 28,
-  },
-  scan: {
-    left: 5,
-  },
-  count: {
-    marginLeft: Platform.OS === 'ios' ? 30 : 15,
-    backgroundColor: color.black_2F251D,
-    borderRadius: 4,
-    width: 49,
-    height: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  countColor: {
-    color: color.white_FFFFFF,
-  },
-});
-
-export default Header;
+    container: {
+        paddingHorizontal: 10
+    },
+    wrapper: {
+        marginTop: 20,
+        padding: 16,
+        paddingHorizontal: 15,
+        backgroundColor: color.white_FFFFFF,
+        borderColor: color.white_FFFFFF,
+        borderRadius: 16,
+        elevation: 3,
+        marginBottom: 20,
+        borderWidth: 1,
+        margin: 2,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 6,
+        elevation: 5,
+    },
+    heading: {
+        fontSize: 16,
+        fontWeight: '500',

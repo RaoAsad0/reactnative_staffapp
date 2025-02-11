@@ -2,7 +2,7 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
 import MyTabs from '../screens/MyTabs';
-import DashboardScreen from '../screens/DashboardScreen';
+import DashboardScreen from './dashboard/DashboardScreen';
 
 const Drawer = createDrawerNavigator();
 
