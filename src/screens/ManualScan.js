@@ -1,10 +1,10 @@
-import React, { useState ,useCallback} from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, StatusBar, TouchableOpacity, FlatList,SafeAreaView } from 'react-native';
 import Header from '../../components/header';
 import { color } from '../color/color';
-import { Image as ExpoImage } from 'expo-image';
 import { attendeeslist } from '../constants/attendeeslist';
-import { useNavigation ,useFocusEffect} from '@react-navigation/native';
+import { useNavigation} from '@react-navigation/native';
+import SvgIcons from '../../components/SvgIcons';
 
 const ManualScan = () => {
   const navigation = useNavigation();
@@ -62,10 +62,7 @@ const ManualScan = () => {
           selectionColor={color.selectField_CEBCA0}
         />
         <TouchableOpacity>
-          <ExpoImage
-            source={require('../../assets/images/search-active.png')}
-            style={styles.searchIcon}
-          />
+         <SvgIcons.searchIcon width={20} height={20} fill="transparent" />
         </TouchableOpacity>
       </View>
 
@@ -111,10 +108,6 @@ const styles = StyleSheet.create({
   searchBar: {
     flex: 1,
     paddingVertical: 10,
-  },
-  searchIcon: {
-    width: 20,
-    height: 20,
   },
   ticketCard: {
     borderWidth: 1,

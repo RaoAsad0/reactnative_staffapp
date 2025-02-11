@@ -12,6 +12,7 @@ import { Image as ExpoImage, ImageBackground as ExpoImageBackground } from 'expo
 import { useNavigation } from '@react-navigation/native';
 import { color } from '../color/color';
 import { StatusBar } from 'expo-status-bar';
+import SvgIcons from '../../components/SvgIcons';
 
 const OtpLoginScreen = () => {
   const navigation = useNavigation();
@@ -74,11 +75,7 @@ const OtpLoginScreen = () => {
           style={styles.background}
         >
           <View style={styles.topSection}>
-            <ExpoImage
-              source={require('../../assets/images/Hexallo favicon.png')}
-              style={styles.image}
-              contentFit="contain"
-            />
+          <SvgIcons.hexalloSvg width={36} height={40} fill="transparent" />
             <Text style={styles.topText}>Hexallo</Text>
           </View>
 
@@ -143,10 +140,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 50,
     paddingHorizontal: 20,
-  },
-  image: {
-    width: 50,
-    height: 50,
   },
   topSection: {
     flexDirection: 'row',

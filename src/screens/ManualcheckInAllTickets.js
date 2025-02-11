@@ -4,7 +4,7 @@ import Header from '../../components/header';
 import { color } from '../color/color';
 import CheckInAllPopUp from '../constants/checkInAllPopupticketList';
 import { ticketslist } from '../constants/ticketslist';
-import { Image as ExpoImage } from 'expo-image';
+import SvgIcons from '../../components/SvgIcons';
 
 const ManualCheckInAllTickets = ({ route }) => {
     const { total } = route.params;
@@ -20,11 +20,7 @@ const ManualCheckInAllTickets = ({ route }) => {
 
                 <View style={styles.popUp}>
                     {/* {total > 1 && <Text style={styles.labeltickets}>Ticket(s) Purchased</Text>} */}
-                    <ExpoImage
-                        source={require('../../assets/images/success-icon.png')}
-                        contentFit="contain"
-                        style={styles.successImageIcon}
-                    />
+                    <SvgIcons.successSvg width={81} height={80} fill="transparent" style= {styles.successImageIcon} />
 
                     <Text style={styles.ticketHolder}>Ticket Holder</Text>
                     <Text style={styles.userEmail}>johndoe@gmail.com</Text>
@@ -105,8 +101,6 @@ const styles = StyleSheet.create({
         fontWeight: '500'
     },
     successImageIcon: {
-        width: 80,
-        height: 80,
         marginTop: 20,
     },
 });

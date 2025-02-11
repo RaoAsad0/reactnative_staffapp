@@ -7,7 +7,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Image as ExpoImage } from 'expo-image';
 import { useNavigation } from '@react-navigation/native';
-
+import SvgIcons from '../../components/SvgIcons';
 
 const BoxOfficeTab = () => {
   const navigation = useNavigation()
@@ -239,19 +239,15 @@ const BoxOfficeTab = () => {
           <TouchableOpacity
             style={[styles.paymentOption,
             paymentOption === 'Cash' && { borderColor: '#AE6F28' },
-            { alignSelf: 'flex-start' } // Cash takes only needed width
+            { alignSelf: 'flex-start' }
             ]}
             onPress={() => setPaymentOption('Cash')}
           >
-            <ExpoImage
-              source={
-                paymentOption === 'Cash'
-                  ? require('../../assets/images/camera-active-icon.png')
-                  : require('../../assets/images/camera-icon.png')
-              }
-              contentFit="contain"
-              style={styles.cameraImage}
-            />
+           {paymentOption === 'Cash' ? (
+          <SvgIcons.cameraIconActive width={24} height={24} />
+        ) : (
+          <SvgIcons.cameraIconInActive width={24} height={24} />
+        )}
             <Text style={[styles.paymentOptionText, paymentOption === 'Cash' && { color: '#5A2F0E' }]}>
               Cash
             </Text>
@@ -261,34 +257,26 @@ const BoxOfficeTab = () => {
           <TouchableOpacity
             style={[styles.paymentOption,
             paymentOption === 'Debit/Credit Card' && { borderColor: '#AE6F28' },
-            { flex: 1 } // Takes remaining space
+            { flex: 1 }
             ]}
             onPress={() => setPaymentOption('Debit/Credit Card')}
           >
-            <ExpoImage
-              source={
-                paymentOption === 'Debit/Credit Card'
-                  ? require('../../assets/images/card-icon-selected.png')
-                  : require('../../assets/images/card-icon.png')
-              }
-              contentFit="contain"
-              style={styles.cardImage}
-            />
+            {paymentOption === 'Debit/Credit Card' ? (
+          <SvgIcons.cardIconActive width={24} height={24} />
+        ) : (
+          <SvgIcons.cardIconInActive width={24} height={24} />
+        )}
             <Text style={[styles.paymentOptionText, paymentOption === 'Debit/Credit Card' && { color: '#5A2F0E' }]}>
               Debit/Credit Card
             </Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity style={[styles.paymentOptioncard, paymentOption === 'Card/Mobile Money' && { borderColor: '#AE6F28' }]} onPress={() => setPaymentOption('Card/Mobile Money')}>
-          <ExpoImage
-            source={
-              paymentOption === 'Card/Mobile Money'
-                ? require('../../assets/images/mobilecard-active-icon.png')
-                : require('../../assets/images/mobilecard-icon.png')
-            }
-            contentFit="contain"
-            style={styles.mobileCardImage}
-          />
+        {paymentOption === 'Card/Mobile Money' ? (
+        <SvgIcons.mobMoneyIconActive width={24} height={24} />
+      ) : (
+        <SvgIcons.mobMoneyIconInActive width={24} height={24} />
+      )}
           <Text style={[styles.paymentOptionText, paymentOption === 'Card/Mobile Money' && { color: '#5A2F0E' }]}>Card/Mobile Money</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -563,14 +551,6 @@ const styles = StyleSheet.create({
   cameraImage: {
     width: 20,
     height: 20,
-  },
-  cardImage: {
-    width: 20,
-    height: 20,
-  },
-  mobileCardImage: {
-    width: 24,
-    height: 24,
   },
 });
 

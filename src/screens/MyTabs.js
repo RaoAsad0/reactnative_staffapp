@@ -6,7 +6,7 @@ import CheckIn from "./CheckIn"
 import Tickets from './Tickets';
 import ManualScan from "./ManualScan"
 import { color } from '../color/color';
-import { View } from 'react-native';
+import SvgIcons from '../../components/SvgIcons';
 const Tab = createBottomTabNavigator();
 
 function MyTabs() {
@@ -15,23 +15,17 @@ function MyTabs() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconSource;
+          let IconComponent;
 
           if (route.name === 'Tickets') {
-            iconSource = focused
-              ? require('../../assets/images/ticket-active-icon.png')
-              : require('../../assets/images/ticket-inactive-icon.png')
+            IconComponent = focused ? SvgIcons.ticketActiveTabSvg : SvgIcons.ticketInactiveTabSvg;
           } else if (route.name === 'Check In') {
-            iconSource = focused
-              ? require('../../assets/images/checkin-active-icon.png')
-              : require('../../assets/images/checkin-inactive-icon.png')
+            IconComponent = focused ? SvgIcons.checkinActiveTabSVG : SvgIcons.checkinInActiveTabSVG;
           } else if (route.name === 'Manual Scan') {
-            iconSource = focused
-              ? require('../../assets/images/search-active.png')
-              : require('../../assets/images/search-normal.png')
+            IconComponent = focused ? SvgIcons.manualActiveTabSVG : SvgIcons.manualInActiveTabSVG;
           }
 
-          return <ExpoImage source={iconSource} style={{ width: 24, height: 24, marginTop: 5 }} />;
+          return <IconComponent width={24} height={24} fill="transparent" />;
         },
         tabBarLabelStyle: {
           fontSize: 12,

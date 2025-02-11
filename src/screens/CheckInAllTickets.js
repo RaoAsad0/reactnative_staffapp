@@ -4,10 +4,10 @@ import Header from '../../components/header';
 import { color } from '../color/color';
 import CheckInAllPopUp from '../constants/checkInAllPopupticketList';
 import { ticketslist } from '../constants/ticketslist';
-import { Image as ExpoImage } from 'expo-image';
+import SvgIcons from '../../components/SvgIcons';
 
 const CheckInAllTickets = ({ route }) => {
-    const { totalTickets,email } = route.params;
+    const { totalTickets, email } = route.params;
     console.log('Tickets List:', ticketslist);
     console.log('Total Tickets:', totalTickets);
     const displayedTickets = ticketslist.slice(0, totalTickets);
@@ -17,30 +17,25 @@ const CheckInAllTickets = ({ route }) => {
 
             <StatusBar barStyle="dark-content" backgroundColor="white" />
             <View style={styles.container}>
-                
-                <View style={styles.popUp}>
-                {totalTickets > 1 && <Text style={styles.labeltickets}>Ticket(s) Purchased</Text>}
-                    <ExpoImage
-                        source={require('../../assets/images/success-icon.png')}
-                        contentFit="contain"
-                        style={styles.successImageIcon}
-                    />
 
+                <View style={styles.popUp}>
+                    {totalTickets > 1 && <Text style={styles.labeltickets}>Ticket(s) Purchased</Text>}
+                    <SvgIcons.successSvg width={81} height={80} fill="transparent" style= {styles.successImageIcon} />
                     <Text style={styles.ticketHolder}>Ticket Holder</Text>
                     <Text style={styles.userEmail}>{email}</Text>
 
                     <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>
-              {totalTickets === 1 ? 'Check-In' : `Check-In All`}
-            </Text>
+                        <Text style={styles.buttonText}>
+                            {totalTickets === 1 ? 'Check-In' : `Check-In All`}
+                        </Text>
                     </TouchableOpacity>
                 </View>
 
                 {/* Ticket List Section */}
                 {totalTickets > 1 && (
-                <View style={styles.ticketsList}>
-                    <CheckInAllPopUp ticketslist={displayedTickets} />
-                </View>
+                    <View style={styles.ticketsList}>
+                        <CheckInAllPopUp ticketslist={displayedTickets} />
+                    </View>
                 )}
             </View>
         </>
@@ -95,7 +90,7 @@ const styles = StyleSheet.create({
     },
     ticketsList: {
         marginTop: 20,
-        flex: 1, 
+        flex: 1,
     },
     userEmail: {
         color: color.brown_3C200A,
@@ -104,8 +99,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     successImageIcon: {
-        width: 80,
-        height: 80,
         marginTop: 20,
     },
 });

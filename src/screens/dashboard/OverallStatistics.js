@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
 import { color } from '../../color/color';
+import SvgIcons from '../../../components/SvgIcons';
 
 const OverallStatistics = () => {
     return (
@@ -14,7 +15,7 @@ const OverallStatistics = () => {
                 <View style={styles.row}>
                     <View style={styles.statContainer}>
                         <View style={styles.statRow}>
-                            <ExpoImage source={require('../../../assets/images/drawer-icon.png')} style={styles.icon} />
+                            <SvgIcons.totalTickets width={18} height={16} fill="white" />
                             <Text style={styles.statTitle}>Total Tickets</Text>
                         </View>
                         <Text style={styles.statValue}>545</Text>
@@ -22,7 +23,7 @@ const OverallStatistics = () => {
 
                     <View style={styles.statContainer}>
                         <View style={styles.statRow}>
-                            <ExpoImage source={require('../../../assets/images/drawer-icon.png')} style={styles.icon} />
+                            <SvgIcons.totalTickets width={18} height={16} fill="white" />
                             <Text style={styles.statTitle}>Total Scanned</Text>
                         </View>
                         <Text style={styles.statValue}>345</Text>
@@ -33,7 +34,7 @@ const OverallStatistics = () => {
                 <View style={styles.row}>
                     <View style={styles.statContainer}>
                         <View style={styles.statRow}>
-                            <ExpoImage source={require('../../../assets/images/drawer-icon.png')} style={styles.icon} />
+                            <SvgIcons.totalTickets width={18} height={16} fill="white" />
                             <Text style={styles.statTitle}>Total Unscanned</Text>
                         </View>
                         <Text style={styles.statValue}>200</Text>
@@ -41,7 +42,7 @@ const OverallStatistics = () => {
 
                     <View style={styles.statContainer}>
                         <View style={styles.statRow}>
-                            <ExpoImage source={require('../../../assets/images/drawer-icon.png')} style={styles.icon} />
+                            <SvgIcons.totalTickets width={18} height={16} fill="white" />
                             <Text style={styles.statTitle}>Available Tickets</Text>
                         </View>
                         <Text style={styles.statValue}>80</Text>
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         gap: 12,
         marginBottom: 6,
-      
+
     },
     statContainer: {
         height: 76,
@@ -108,6 +109,7 @@ const styles = StyleSheet.create({
     statRow: {
         flexDirection: 'row',
         alignItems: 'center',
+        gap: 5
     },
     icon: {
         width: 16,

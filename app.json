@@ -10,7 +10,9 @@
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/Hexallo favicon.png",
-      "resizeMode": "contain"
+      "resizeMode": "contain",
+      "backgroundColor": "#120b00"
+      
     },
     "ios": {
       "supportsTablet": true,

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity, Text,StatusBar ,SafeAreaView} from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text,StatusBar ,SafeAreaView} from 'react-native';
 import Header from '../../components/header';
 import TicketsTab from './TicketsTab';
 import BoxOfficeTab from './BoxOfficeTab';
 import { color } from '../color/color';
+import SvgIcons from '../../components/SvgIcons';
 
 const SettingsScreen = () => {
   const [activeView, setActiveView] = useState('TicketsTab');
@@ -15,7 +16,7 @@ const SettingsScreen = () => {
       price: 30,
       date: 'Sat, 02 2025',
       status: 'Scanned',
-      imageUrl: require('../../assets/images/qr-icon.png')
+      imageUrl: SvgIcons.qRIcon
     },
     {
       id: '#12389651343',
@@ -23,7 +24,7 @@ const SettingsScreen = () => {
       price: 30,
       date: 'Sat, 02 2025',
       status: 'Unscanned',
-      imageUrl: require('../../assets/images/qr-icon.png')
+      imageUrl: SvgIcons.qRIcon
     },
     {
       id: '#12389651344',
@@ -31,7 +32,7 @@ const SettingsScreen = () => {
       price: 30,
       date: 'Sat, 02 2025',
       status: 'Scanned',
-      imageUrl: require('../../assets/images/qr-icon.png')
+      imageUrl: SvgIcons.qRIcon
     },
     {
       id: '#12389651345',
@@ -39,14 +40,14 @@ const SettingsScreen = () => {
       price: 30,
       date: 'Sun, 02 2025',
       status: 'Unscanned',
-      imageUrl: require('../../assets/images/qr-icon.png')
+      imageUrl: SvgIcons.qRIcon
     }, {
       id: '#12389651346',
       type: 'Standard Ticket',
       price: 30,
       date: 'Sat, 02 2025',
       status: 'Scanned',
-      imageUrl: require('../../assets/images/qr-icon.png')
+      imageUrl: SvgIcons.qRIcon
     },
     {
       id: '#12389651347',
@@ -54,14 +55,14 @@ const SettingsScreen = () => {
       price: 30,
       date: 'Sat, 02 2025',
       status: 'Unscanned',
-      imageUrl: require('../../assets/images/qr-icon.png')
+      imageUrl: SvgIcons.qRIcon
     }, {
       id: '#12389651348',
       type: 'Standard Ticket',
       price: 30,
       date: 'Sat, 02 2025',
       status: 'Scanned',
-      imageUrl: require('../../assets/images/qr-icon.png')
+      imageUrl: SvgIcons.qRIcon
     },
     {
       id: '#12389651349',
@@ -69,14 +70,14 @@ const SettingsScreen = () => {
       price: 30,
       date: 'Sat, 02 2025',
       status: 'Unscanned',
-      imageUrl: require('../../assets/images/qr-icon.png')
+      imageUrl: SvgIcons.qRIcon
     }, {
       id: '#12389651350',
       type: 'Standard Ticket',
       price: 30,
       date: 'Sat, 02 2025',
       status: 'Scanned',
-      imageUrl: require('../../assets/images/qr-icon.png')
+      imageUrl: SvgIcons.qRIcon
     },
     {
       id: '#12389651351',
@@ -84,7 +85,7 @@ const SettingsScreen = () => {
       price: 30,
       date: 'Sat, 02 2025',
       status: 'Unscanned',
-      imageUrl: require('../../assets/images/qr-icon.png')
+      imageUrl: SvgIcons.qRIcon
     },
     // Add more tickets
   ];

@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { color } from '../color/color';
 import { Image as ExpoImage } from 'expo-image';
 import { useNavigation } from '@react-navigation/native';
+import SvgIcons from '../../components/SvgIcons';
 
 const TicketsTab = ({ tickets }) => {
     const navigation = useNavigation()
@@ -76,7 +77,7 @@ const TicketsTab = ({ tickets }) => {
             </View>
             <View style={styles.imageContainer}>
                 {item.imageUrl && (
-                    <ExpoImage source={item.imageUrl} style={styles.ticketImage} contentFit='cover' />
+                    <item.imageUrl width={"100%"} height={"100%"} />
                 )}
             </View>
         </TouchableOpacity>
@@ -103,7 +104,7 @@ const TicketsTab = ({ tickets }) => {
                 </View>
 
                 <TouchableOpacity onPress={() => handleSearchChange(searchText)}>
-                    <ExpoImage source={require('../../assets/images/search-active.png')} style={styles.searchIcon} />
+                    <SvgIcons.searchIcon width={20} height={20} fill="transparent" />
                 </TouchableOpacity>
             </View>
 
@@ -246,10 +247,6 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         fontWeight: '500',
         fontSize: 13,
-    },
-    searchIcon: {
-        width: 20,
-        height: 20,
     },
     tabContainer: {
         flexDirection: 'row',

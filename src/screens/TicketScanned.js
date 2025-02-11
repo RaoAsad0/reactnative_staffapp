@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import { color } from '../color/color';
 import Header from '../../components/header';
-import { Image as ExpoImage } from 'expo-image';
+import SvgIcons from '../../components/SvgIcons';
 
 
 const TicketScanned = ({ route }) => {
     const { status, note } = route.params;
-  
+
     return (
         <>
             <Header />
@@ -15,15 +15,10 @@ const TicketScanned = ({ route }) => {
             <View style={styles.container}>
 
                 <View style={styles.popUp}>
-                <Text style={styles.labeltickets}>
+                    <Text style={styles.labeltickets}>
                         {status === 'Scanned' ? 'Ticket Scanned' : 'Ticket Unscanned'}
                     </Text>
-                    <ExpoImage
-                        source={require('../../assets/images/success-tick-icon.png')}
-                        contentFit="contain"
-                        style={styles.successImageIcon}
-                    />
-
+                    <SvgIcons.successBrownSVG width={81} height={80} fill="transparent" style={styles.successImageIcon} />
                     <Text style={styles.ticketHolder}>Ticket Holder</Text>
                     <Text style={styles.userName}>John Doe</Text>
                 </View>
@@ -47,9 +42,9 @@ const TicketScanned = ({ route }) => {
                         <Text style={styles.scanCountValue}>3</Text>
                     </View>
                 </View>
-                <View style= {styles.noteContainer}>
-                <Text style={styles.LabelNote}>Note</Text>
-                <Text style={styles.noteDescription}>{note || 'No note added'}</Text>
+                <View style={styles.noteContainer}>
+                    <Text style={styles.LabelNote}>Note</Text>
+                    <Text style={styles.noteDescription}>{note || 'No note added'}</Text>
                 </View>
             </View>
         </>
@@ -94,8 +89,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     successImageIcon: {
-        width: 80,
-        height: 80,
         marginTop: 20,
     },
     ticketContainer: {
@@ -188,7 +181,7 @@ const styles = StyleSheet.create({
         color: color.black_2F251D,
         top: 38
     },
-    noteContainer:{
+    noteContainer: {
         flexDirection: 'column',
         justifyContent: 'space-between',
         borderWidth: 1,
@@ -206,18 +199,18 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 5,
     },
-    LabelNote:{
+    LabelNote: {
         fontSize: 14,
         fontWeight: '500',
         color: color.black_2F251D
     },
-    noteDescription:{
+    noteDescription: {
         fontSize: 14,
         fontWeight: '400',
         color: color.black_544B45,
         marginTop: 5
     }
-    
+
 });
 
 export default TicketScanned;
