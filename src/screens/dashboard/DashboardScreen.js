@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Platform, TouchableOpacity, StatusBar } from 'react-native';
 import { color } from '../../color/color';
 import OverallStatistics from './OverallStatistics';
+import BoxOfficeSales from './BoxOfficeSales';
 import { useNavigation } from '@react-navigation/native';
 import SvgIcons from '../../../components/SvgIcons';
 const DashboardScreen = () => {
@@ -20,6 +21,7 @@ const DashboardScreen = () => {
       </View>
       <Text style={styles.labelDashboard}>Dashboard</Text>
       <OverallStatistics />
+      <BoxOfficeSales />
     </View>
   );
 };

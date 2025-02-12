@@ -8,10 +8,7 @@ const OverallStatistics = () => {
     return (
         <View style={styles.container}>
             <View style={styles.wrapper}>
-                {/* Heading */}
                 <Text style={styles.heading}>Overall Statistics</Text>
-
-                {/* First Row */}
                 <View style={styles.row}>
                     <View style={styles.statContainer}>
                         <View style={styles.statRow}>
@@ -29,8 +26,6 @@ const OverallStatistics = () => {
                         <Text style={styles.statValue}>345</Text>
                     </View>
                 </View>
-
-                {/* Second Row */}
                 <View style={styles.row}>
                     <View style={styles.statContainer}>
                         <View style={styles.statRow}>
@@ -64,7 +59,6 @@ const styles = StyleSheet.create({
         backgroundColor: color.white_FFFFFF,
         borderColor: color.white_FFFFFF,
         borderRadius: 16,
-        elevation: 3,
         marginBottom: 20,
         borderWidth: 1,
         margin: 2,
@@ -97,14 +91,9 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         marginHorizontal: 3,
         backgroundColor: color.white_FFFFFF,
-        borderColor: color.white_FFFFFF,
+        borderColor: color.brown_CEBCA04D,
         borderWidth: 1,
-        margin: 2,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 6,
-        elevation: 5,
+       
     },
     statRow: {
         flexDirection: 'row',
