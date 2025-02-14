@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, StatusBar, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, StatusBar, TouchableOpacity,SafeAreaView } from 'react-native';
 import React from 'react';
 import Header from '../../components/header';
 import { color } from '../color/color';
@@ -12,12 +12,10 @@ const CheckInAllTickets = ({ route }) => {
     console.log('Total Tickets:', totalTickets);
     const displayedTickets = ticketslist.slice(0, totalTickets);
     return (
-        <>
-            <Header />
-
-            <StatusBar barStyle="dark-content" backgroundColor="white" />
-            <View style={styles.container}>
-
+        <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="dark-content" backgroundColor="white" />
+        <Header />
+<View style={styles.wrapper}>
                 <View style={styles.popUp}>
                     {totalTickets > 1 && <Text style={styles.labeltickets}>Ticket(s) Purchased</Text>}
                     <SvgIcons.successSvg width={81} height={80} fill="transparent" style= {styles.successImageIcon} />
@@ -38,12 +36,16 @@ const CheckInAllTickets = ({ route }) => {
                     </View>
                 )}
             </View>
-        </>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
+        backgroundColor: color.white_FFFFFF,
+    },
+    wrapper:{
         flex: 1,
         paddingHorizontal: 20,
         backgroundColor: color.white_FFFFFF,

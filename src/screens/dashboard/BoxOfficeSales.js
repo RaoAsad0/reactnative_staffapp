@@ -2,13 +2,14 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Svg, Circle } from "react-native-svg";
 import { color } from "../../color/color";
+import { formatValue } from "../../constants/formatValue";
 
 const BoxOfficeSales = () => {
     const total = 20000;
     const values = [
-        { label: "Cash", value: 3500, color: "#AE6F28" },
+        { label: "Cash", value: 8500, color: "#AE6F28" },
         { label: "Card", value: 8000, color: "#87807C" },
-        { label: "Mobile Money", value: 8500, color: "#EDB58A" },
+        { label: "Mobile Money", value: 3500, color: "#EDB58A" },
     ];
     const sortedValues = [...values].sort((a, b) => b.value - a.value);
 
@@ -58,29 +59,34 @@ const BoxOfficeSales = () => {
                             })}
                         </Svg>
                         <View style={styles.centerText}>
-                            <Text style={styles.amountText}>GHS {total}</Text>
+                            <Text style={styles.amountText}>GHS {formatValue(total)}</Text>
                             <Text style={styles.totalText}>Total</Text>
                         </View>
                     </View>
-                    <View style={styles.legendContainer}>
+                    <View style={styles.paymentMethod}>
                         {values.map((item, index) => (
-                            <View style={styles.legendItem} key={index}>
-                                <View style={[styles.colorBox, { backgroundColor: item.color }]} />
-                                {item.label === "Mobile Money" ? (
-                                    <View style={styles.mobileMoneyContainer}>
-                                        <Text style={styles.legendText}>Mobile</Text>
-                                        <Text style={styles.legendText}>Money</Text>
-                                    </View>
-                                ) : (
-                                    <Text style={styles.legendText}>{item.label}</Text>
-                                )}
-                                <Text style={styles.legendValue} numberOfLines={2} ellipsizeMode="tail">
-                                          GHS {item.value.toLocaleString()}
-                                </Text>
+                            <View style={styles.paymentItem} key={index}>
+                                <View style={styles.colorBoxWrapper}>
+                                    <View style={[styles.colorBox, { backgroundColor: item.color }]} />
+                                </View>
+                                <View style={styles.paymentLabel}>
+                                    {item.label === "Mobile Money" ? (
+                                        <View>
+                                            <Text style={styles.paymentText}>Mobile</Text>
+                                            <Text style={styles.paymentText}>Money</Text>
+                                        </View>
+                                    ) : (
+                                        <Text style={styles.paymentText}>{item.label}</Text>
+                                    )}
+                                </View>
+
+                                <View style={styles.paymentValueWrapper}>
+                                    <Text style={styles.labelGHS}>GHS</Text>
+                                    <Text style={styles.paymentValue}>{formatValue(item.value)}</Text>
+                                </View>
                             </View>
                         ))}
                     </View>
-
                 </View>
             </View>
         </View>
@@ -120,6 +126,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         position: "relative",
+        marginLeft: -8
     },
     centerText: {
         position: "absolute",
@@ -139,49 +146,55 @@ const styles = StyleSheet.create({
         color: color.grey_6B7785,
         marginTop: 3
     },
-    legendContainer: {
-        flexWrap: "wrap",
-        flexDirection: "row",
-        justifyContent: "flex-start",
-        marginLeft: 20,
-        gap: 30,
+    paymentMethod: {
+        flexDirection: "column",
+        alignItems: "flex-start",
+        width: "50%",
+        gap: 10,
     },
-
-    legendItem: {
+    paymentItem: {
         flexDirection: "row",
         alignItems: "center",
-        flexWrap: "wrap",
-        width: "100%", 
+        width: "100%",
+        minHeight: 40,
     },
-
+    colorBoxWrapper: {
+        width: 5,
+        alignItems: "center",
+    },
     colorBox: {
         width: 15,
         height: 15,
         borderRadius: 3,
-        marginRight: 8,
+        marginRight: 5
     },
-
-    mobileMoneyContainer: {
-        width: 60, 
+    paymentLabel: {
+        paddingLeft: 8,
+        minWidth: 70,
     },
+    paymentValueWrapper: {
+        gap: 5,
+        flexDirection: "row",
+        paddingLeft: 20
 
-    legendText: {
+    },
+    paymentText: {
         fontSize: 14,
         fontWeight: "500",
         color: color.drak_black_000000,
-        flexShrink: 1,
     },
-
-    legendValue: {
+    paymentValue: {
         fontSize: 14,
         fontWeight: "400",
         color: color.brown_766F6A,
-        minWidth: 80,
-        textAlign: "right",
-        flexShrink: 1,
-        flexWrap: "wrap",
-        maxWidth: 100,
+
     },
+    labelGHS: {
+        fontSize: 14,
+        fontWeight: "400",
+        color: color.brown_766F6A,
+
+    }
 });
 
 export default BoxOfficeSales;

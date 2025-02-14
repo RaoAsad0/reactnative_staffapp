@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, SafeAreaView } from 'react-native';
 import { color } from '../color/color';
 import Header from '../../components/header';
 import SvgIcons from '../../components/SvgIcons';
@@ -8,11 +8,10 @@ const TicketScanned = ({ route }) => {
     const { status, note } = route.params;
 
     return (
-        <>
-            <Header />
-
+        <SafeAreaView style={styles.container}>
             <StatusBar barStyle="dark-content" backgroundColor="white" />
-            <View style={styles.container}>
+            <Header />
+            <View style={styles.wrapper}>
 
                 <View style={styles.popUp}>
                     <Text style={styles.labeltickets}>
@@ -47,12 +46,16 @@ const TicketScanned = ({ route }) => {
                     <Text style={styles.noteDescription}>{note || 'No note added'}</Text>
                 </View>
             </View>
-        </>
+        </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
+        backgroundColor: color.white_FFFFFF,
+    },
+    wrapper: {
         flex: 1,
         paddingHorizontal: 20,
         backgroundColor: color.white_FFFFFF,
