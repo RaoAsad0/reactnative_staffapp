@@ -1,13 +1,13 @@
 import { CameraView, useCameraPermissions } from 'expo-camera';
-import { useState, useEffect , useCallback } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View, Platform, StatusBar, Dimensions,SafeAreaView} from 'react-native';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { Button, StyleSheet, Text, TouchableOpacity, View, Platform, StatusBar, Dimensions, SafeAreaView, Animated } from 'react-native';
 import CameraOverlay from '../../components/CameraOverlay';
 import Header from '../../components/header';
 import { color } from '../color/color';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { getFormattedDate } from '../constants/dateAndTime';
 import NoteModal from '../constants/noteModal';
-import { useNavigation ,useFocusEffect} from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 const { width, height } = Dimensions.get('window');
 
 const HomeScreen = () => {
@@ -25,6 +25,8 @@ const HomeScreen = () => {
   const [notes, setNotes] = useState([]);
   const [noteCount, setNoteCount] = useState(0);
   const [noteToEdit, setNoteToEdit] = useState(null);
+  const animatedWidth = useRef(new Animated.Value(0)).current;
+  const [showAnimation, setShowAnimation] = useState(false);
 
   useEffect(() => {
     requestPermission();
@@ -92,10 +94,28 @@ const HomeScreen = () => {
     else if (data === '789') scanData = { text: 'Scan Unsuccessful', color: '#ED4337', icon: 'close' };
 
     setScanResult(scanData);
+    animateProgressBar();
+    setShowAnimation(true);
+
+
+    setTimeout(() => {
+      setShowAnimation(false); // Hide only animation
+    }, 2000);
+
     setTimeout(() => {
       setScannedData(null);
       setScanning(false);
-    }, 1000);
+    }, 2000);
+  };
+
+
+  const animateProgressBar = () => {
+    animatedWidth.setValue(0);
+    Animated.timing(animatedWidth, {
+      toValue: width, // Expand fully to screen width
+      duration: 1000,
+      useNativeDriver: false,
+    }).start();
   };
 
   const handleAddNote = (newNote) => {
@@ -137,15 +157,29 @@ const HomeScreen = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
       <Header />
+      {scanResult && (
+        <View style={styles.scanResultContainer}>
+          {/* Animated Bar */}
+          {showAnimation && (
+            <Animated.View
+              style={[
+                styles.animatedBar,
+                { backgroundColor: scanResult.color, width: animatedWidth },
+              ]}
+            />
+          )}
+          <Text style={styles.animatedText}>{scanResult.text}</Text>
+        </View>
+      )}
       <View style={styles.cameraContainer}>
-      <View style={[styles.cameraWrapper]}>
-        <CameraView
-          style={styles.camera}
-          facing={facing}
-          onBarcodeScanned={scanning ? undefined : handleBarCodeScanned}
-        />
-        <CameraOverlay linePosition={linePosition} />
-      </View>
+        <View style={[styles.cameraWrapper]}>
+          <CameraView
+            style={styles.camera}
+            facing={facing}
+            onBarcodeScanned={scanning ? undefined : handleBarCodeScanned}
+          />
+          <CameraOverlay linePosition={linePosition} />
+        </View>
       </View>
 
       {scanResult && (
@@ -201,7 +235,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
     backgroundColor: 'black',
-    marginHorizontal: width * 0.1, 
+    marginHorizontal: width * 0.1,
     marginVertical: height * 0.1,
   },
   camera: {
@@ -341,6 +375,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#4CAF50',
     padding: 10,
     borderRadius: 5,
+  },
+  animatedBar: {
+    position: 'absolute',
+    left: 0,
+    height: 40, // Bar height
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  animatedText: {
+    color: color.white_FFFFFF,
+    fontWeight: '500',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 14
   },
 });
 

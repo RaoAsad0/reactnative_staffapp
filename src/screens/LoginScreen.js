@@ -31,7 +31,7 @@ const LoginScreen = () => {
         translucent
       />
       <ExpoImageBackground
-        source={require('../../assets/images/bg-signup.png')}
+        source={require('../../assets/images/bg-img-signup.png')}
         contentFit="cover"
         style={styles.background}
       >
