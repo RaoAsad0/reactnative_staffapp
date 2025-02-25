@@ -20,7 +20,7 @@ function Navigation() {
   return (
     <Stack.Navigator >
       <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false,unmountOnBlur: true }}  />
-      <Stack.Screen name="LoggedIn" component={MyDrawer} options={{ headerShown: false,unmountOnBlur: true }} /> 
+      <Stack.Screen name="LoggedIn" component={MyTabs} options={{ headerShown: false,unmountOnBlur: true }} /> 
       <Stack.Screen name="OtpLogin" component={OtpLoginScreen} options={{ headerShown: false,unmountOnBlur: true }} /> 
       <Stack.Screen name="TicketsTab" component={TicketsTab} options={{ headerShown: false,unmountOnBlur: true }} /> 
       <Stack.Screen name="BoxOfficeTab" component={BoxOfficeTab} options={{ headerShown: false,unmountOnBlur: false }} /> 

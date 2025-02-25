@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, Platform, Dimensions, StatusBar,TouchableOpacity } from 'react-native';
 import { color } from '../src/color/color';
 import SvgIcons from './SvgIcons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, DrawerActions } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 
@@ -12,7 +12,7 @@ const Header = () => {
     <View style={styles.container}>
       <View style={styles.headerColumn}>
         <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+        <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
           <SvgIcons.drawerSvg width={20} height={20} fill="transparent" />
           </TouchableOpacity>
           <Text style={styles.eventName}>OUTMOSPHERE</Text>

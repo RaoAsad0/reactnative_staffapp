@@ -1,13 +1,11 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import Navigation from "./src/navigation/navigation"
-
-import MyTabs from './src/screens/MyTabs';
+import MyDrawer from "./src/screens/MyDrawer";
 
 function App() {
   return (
     <NavigationContainer>
-      <Navigation />
+      <MyDrawer />
     </NavigationContainer>
   );
 }

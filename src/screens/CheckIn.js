@@ -88,7 +88,7 @@ const HomeScreen = () => {
     setScannedData(data);
     setScanTime(getFormattedDate());
 
-    let scanData = { text: 'Invalid QR code', color: '#ED4337', icon: 'close' };
+    let scanData = { text: 'Scan Unsuccessful', color: '#ED4337', icon: 'close' };
     if (data === '123') scanData = { text: 'Scan Successful', color: '#4BB543', icon: 'check' };
     else if (data === '456') scanData = { text: 'Scanned Already', color: '#D8A236', icon: 'close' };
     else if (data === '789') scanData = { text: 'Scan Unsuccessful', color: '#ED4337', icon: 'close' };
@@ -97,14 +97,10 @@ const HomeScreen = () => {
     animateProgressBar();
     setShowAnimation(true);
 
-
-    setTimeout(() => {
-      setShowAnimation(false); // Hide only animation
-    }, 2000);
-
     setTimeout(() => {
       setScannedData(null);
       setScanning(false);
+      setShowAnimation(false);
     }, 2000);
   };
 
@@ -159,7 +155,6 @@ const HomeScreen = () => {
       <Header />
       {scanResult && (
         <View style={styles.scanResultContainer}>
-          {/* Animated Bar */}
           {showAnimation && (
             <Animated.View
               style={[
@@ -196,7 +191,7 @@ const HomeScreen = () => {
               <TouchableOpacity style={styles.detailButton} onPress={handleDetailButtonPress}>
                 <Text style={styles.detailColor}>Details</Text>
               </TouchableOpacity>
-              {(scanResult.text === 'Scan Unsuccessful' || scanResult.text === 'Invalid QR code' || scanResult.text === 'Scanned Already') && (
+              {(scanResult.text === 'Scan Unsuccessful'  || scanResult.text === 'Scanned Already') && (
                 <TouchableOpacity style={styles.noteButton} onPress={handleNoteButtonPress}>
                   <Text style={styles.noteColor}>Note</Text>
                   {noteCount > 0 && (
@@ -379,7 +374,7 @@ const styles = StyleSheet.create({
   animatedBar: {
     position: 'absolute',
     left: 0,
-    height: 40, // Bar height
+    height: 30, // Bar height
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -388,7 +383,7 @@ const styles = StyleSheet.create({
     color: color.white_FFFFFF,
     fontWeight: '500',
     textAlign: 'center',
-    padding: 10,
+    padding: 5,
     fontSize: 14
   },
 });
